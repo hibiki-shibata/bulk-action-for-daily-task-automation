@@ -1,15 +1,29 @@
 import { globalConfig } from '../../resource/globalConfig.js'
 import { sendRequest } from '../api/request.js'
-import { csvRepository } from '../repository/csvRepository.js'
+import { CsvRepository } from '../repository/csvRepository.js'
 import { jsonRepository } from '../repository/jsonRepository.js'
+import { globalConfigType } from '../type/globalConfType.js'
 
 
-export async function controller(accessTokenFromCLI) {
-    const venueIDList = await csvRepository()
-    const requestBodyJson = await jsonRepository()
+
+const config: globalConfigType = {
+    requestUriPath: globalConfig.requestUriPath,
+    requestMethod: globalConfig.requestMethod,
+    csvPath: globalConfig.csvPath,
+    jsonPath: globalConfig.jsonPath
+}
+
+
+export async function controller(accessTokenFromCLI: string): Promise<void> {
+    const csvRepository =  CsvRepository.loadCsvData(config.csvPath)
+    
+    // Get the list of all venue IDs from the CSV file
+    const venueIDList: string[] = await (await csvRepository).getAllDataInColumnOf("venueID")
+
+    const requestBodyJson: Object = await jsonRepository()
 
     venueIDList.forEach(async venueID => {
-        const requestURI = `${globalConfig.requestUriPath}${venueID}`
+        const requestURI: string = `${config.requestUriPath}${venueID}`
         sendRequest(accessTokenFromCLI, requestURI, requestBodyJson)
     })
 
