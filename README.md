@@ -1,4 +1,11 @@
 ## Expected behavior when you run this:📝
+
+### What you manually need:
+- CSV file....Define the target values of request.
+- JSON file....Define the structure of request body.
+- controller.ts.....Simply define the logics how pre-configured data will be used.
+
+### Details ~ step by step:
 1. You will configure the tool in [`./resource/globalConfig.ts`](https://github.com/hibiki-shibata/bulk-action-for-daily-task-automation/blob/main/resource/globalConfig.ts)
 2. You will prepare CSV and JSON files, which contain resource data to be used for structuring requests.(example [./resource/](https://github.com/hibiki-shibata/bulk-action-for-daily-task-automation/tree/main/resource)) --  These resource data will be used in Bulk-Action Logic layer: [`./src/controller/controller.ts`](https://github.com/hibiki-shibata/bulk-action-for-daily-task-automation/blob/main/src/controller/controller.ts)  
 3. 4. You will customize the Bulk-Action Logic layer: [↑](https://github.com/hibiki-shibata/bulk-action-for-daily-task-automation/blob/main/src/controller/controller.ts)
