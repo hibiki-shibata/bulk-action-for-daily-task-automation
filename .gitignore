@@ -3,3 +3,6 @@ node_modules
 .DS_Store
 *.log
 *.env
+requestBody.json
+venueID.csv
+dist

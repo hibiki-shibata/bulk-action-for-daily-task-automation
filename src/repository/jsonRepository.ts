@@ -1,4 +1,4 @@
-import { globalConfig } from "../../config.js";
+import { globalConfig } from "../../resource/globalConfig.js";
 import { fileReader } from '../util/fileReader.js'
 
 

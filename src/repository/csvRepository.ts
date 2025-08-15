@@ -1,14 +1,14 @@
-import { globalConfig } from "../../config.js";
+import { globalConfig } from "../../resource/globalConfig.js";
 import { fileReader } from '../util/fileReader.js'
 
 export async function csvRepository() {
-    let listOfVenueIdsToUpdate = []
+    let listOfVenueIdsToUpdate: any[] = []
     let countLinesOfCsvRows = 1
 
     const rawCsvData = await fileReader(globalConfig.csvPath)
     const csvDataRows = rawCsvData.split('\n')
 
-    csvDataRows.forEach(rowOfCsv => {        
+    csvDataRows.forEach((rowOfCsv: any) => {        
         const validRow = csvDataFormatValidator(rowOfCsv)
         if (!validRow) {
             console.log(`Invalid CSV format at line ${countLinesOfCsvRows}: "${rowOfCsv}". Please ensure the CSV file does not contain empty lines or multiple columns.`);
@@ -26,7 +26,7 @@ export async function csvRepository() {
 
 //Spec1: Does not allow empty lines in the CSV.
 //Spec2: Does not allow multiple columns in the CSV.
-function csvDataFormatValidator(rowOfCsv) {
+function csvDataFormatValidator(rowOfCsv: string) {
     let trimedRowOfCsvData = rowOfCsv.trim()
     const isEmptyRow = trimedRowOfCsvData === ""
     const hasMultipleColumns = trimedRowOfCsvData.includes(",")
