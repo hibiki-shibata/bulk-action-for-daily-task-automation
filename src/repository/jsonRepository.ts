@@ -1,10 +1,6 @@
 import { fileReader } from '../util/fileReader.js'
+import { IJsonRepository } from '../type/jsonRepository.js'
 
-
-
-interface IJsonRepository {
-    getAllData(): Promise<Object>
-}
 
 
 export class JsonRepository implements IJsonRepository {
@@ -25,4 +21,5 @@ export class JsonRepository implements IJsonRepository {
     public async getAllData(): Promise<Object> {
         return JsonRepository.JsonDataALl
     }
+
 }

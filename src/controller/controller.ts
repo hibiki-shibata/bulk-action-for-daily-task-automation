@@ -2,6 +2,8 @@ import { globalConfig } from '../../resource/globalConfig.js'
 import { sendRequest } from '../api/request.js'
 import { CsvRepository } from '../repository/csvRepository.js'
 import { JsonRepository } from '../repository/jsonRepository.js'
+import { ICsvRepository } from '../type/csvRepositoryType.js'
+import { IJsonRepository } from '../type/jsonRepository.js'
 import { globalConfigType } from '../type/globalConfType.js'
 
 
@@ -13,40 +15,54 @@ const config: globalConfigType = {
 }
 
 
+
 export async function controller(accessTokenFromCLI: string): Promise<void> {
-    const venueCsvRepository: CsvRepository = await CsvRepository.getInstanceAndloadCsvFrom(config.csvPath)
+    // Load CSV and JSON resource files
+    const targetDataCsvRepository: ICsvRepository = await CsvRepository.getInstanceAndloadCsvFrom(config.csvPath)
+    const resourceJsonObjRepository: IJsonRepository = await JsonRepository.getInstanceAndLoadJsonFrom(config.jsonPath)
 
-    const venueJsonRepository: JsonRepository = await JsonRepository.getInstanceAndLoadJsonFrom(config.jsonPath)
-
-    //// ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓　WRITE YOUR CODE BELOW　↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ ////
-    // You can use the config object to customize the behavior of bulk reuqest.
-    // Below codes are example.
-
-
-   
-
-
-    // Get the list of all venue IDs from the column named "venueID" from CSV file.
-    const venueIDList: string[] = await venueCsvRepository.getAllDataInColumnOf("venueID")
-
-    // Get the request body object from the JSON file.
-    const reqBodyObjectFromResource: Object = await venueJsonRepository.getAllData()
-
-
-    // Doing bulk action by sending request to each venue ID.
-    venueIDList.forEach(async venueID => {
-        const requestURI: string = `${config.requestUriPath}${venueID}`
-        sendRequest(accessTokenFromCLI, requestURI, reqBodyObjectFromResource)
+    // ===============================================================================================================================================================
+    //   You can use the config object to access the global configuration values.
+    //   Below codes are example.
+    // ============================================= WRITE YOUR CODE BELOW ===========================================================================================
 
 
 
 
 
+    // A) get Target data list from CSV file for repeating and include it in each request.
+    const listOfTargetData: string[] = await targetDataCsvRepository.getAllDataInColumnOf("venueId")
 
-    //// ↑↑↑↑↑↑↑↑↑↑↑↑↑↓↑↑↓↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↓↑↑↓↑↑↑↑↑↑↑↑　WRITE YOUR CODE ABOVE　↑↑↑↑↑↑↑↑↑↑↑↑↑↓↑↑↓↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↓↑↑↓↑↑↑↑↑↑↑↑ ////
+    // B) get default Request body object from JSON file to use in each request.
+    const resourceJsonObj: Object = await resourceJsonObjRepository.getAllData()
 
 
-    })
+    // C-1) Send requests using "forEach", which actually play a role "bulk request".
+    listOfTargetData.forEach(async (targetID: string) => {
+        const requestURI: string = `${config.requestUriPath}${targetID}`
+        const requestBody: Object = resourceJsonObj
+        sendRequest(accessTokenFromCLI, requestURI, requestBody)
+    }
+    )
+
+
+    // // C-2) Case where you want to modify the request body for each request.
+    // listOfTargetData.forEach(async (targetID: string) => {
+    //     const requestURI: string = config.requestUriPath
+    //     const requestBody: Object = {
+    //         ...resourceJsonObj,
+    //         id: targetID,
+    //     }
+
+    //     await sendRequest(accessTokenFromCLI, requestURI, requestBody)
+    // })
+
+
+
+
+    // ============================================ WRITE YOUR CODE ABOVE ===========================================================================================
+    //   Above codes are example.
+    // ===============================================================================================================================================================
 
 }
 
