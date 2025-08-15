@@ -9,8 +9,8 @@ import { globalConfigType } from '../type/globalConfType.js'
 const config: globalConfigType = {
     requestUriPath: globalConfig.requestUriPath,
     requestMethod: globalConfig.requestMethod,
-    csvPath: globalConfig.csvPath,
-    jsonPath: globalConfig.jsonPath
+    csvPath: globalConfig.requestDataResourcePath.csvPath,
+    jsonPath: globalConfig.requestDataResourcePath.jsonPath
 }
 
 
