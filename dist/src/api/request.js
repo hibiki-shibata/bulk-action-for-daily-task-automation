@@ -1,5 +1,4 @@
-import { globalConfig } from "../../config.js";
-
+import { globalConfig } from "../../globalConfig.js";
 export async function sendRequest(accessToken, requestURI, requestBodyJson) {
     const response = await fetch(requestURI, {
         method: globalConfig.requestMethod,
@@ -12,9 +11,9 @@ export async function sendRequest(accessToken, requestURI, requestBodyJson) {
     }).catch(error => {
         throw Error(`Network error: [${error.message}] for URI: [${requestURI}]`);
     });
-
-    if (!response.ok) throw Error(`Request failed with status ${response.status} for URI: ${requestURI}`);
+    if (!response.ok)
+        throw Error(`Request failed with status ${response.status} for URI: ${requestURI}`);
     console.log(`Request sent successfully for URI: ${requestURI}`);
-
-    return response.ok
+    return response.ok;
 }
+//# sourceMappingURL=request.js.map

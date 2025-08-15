@@ -1,0 +1,1 @@
+{"version":3,"file":"fileReader.js","sourceRoot":"","sources":["../../../src/util/fileReader.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,MAAM,SAAS,CAAA,CAAC,oDAAoD;AAE7E,MAAM,CAAC,KAAK,UAAU,UAAU,CAAC,QAAgB;IAC7C,MAAM,OAAO,GAAG,EAAE,CAAC,YAAY,CAAC,QAAQ,EAAE,MAAM,CAAC,CAAA;IACjD,OAAO,OAAO,CAAA;AAClB,CAAC"}

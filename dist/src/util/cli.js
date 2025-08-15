@@ -1,22 +1,15 @@
-import readline from 'readline'
+import readline from 'node:readline';
 import { controller } from '../controller.js';
-
-
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
-    terminator: true
+    terminal: true
 });
-
-
 export async function askAcccessTokenInCli() {
-
     rl.question('Please enter your access token: ', (inputAccessToken) => {
-        if (!inputAccessToken) throw Error("Access token is required")
-
-        controller(inputAccessToken).then(() => { rl.close() }
-        )
-
-    })
+        if (!inputAccessToken)
+            throw Error("Access token is required");
+        controller(inputAccessToken).then(() => { rl.close(); });
+    });
 }
-
+//# sourceMappingURL=cli.js.map
