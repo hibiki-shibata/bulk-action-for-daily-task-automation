@@ -15,16 +15,15 @@ const config: globalConfigType = {
 
 
 export async function controller(accessTokenFromCLI: string): Promise<void> {
-    const csvRepository =  CsvRepository.loadCsvData(config.csvPath)
-    
+    const venueDataCsvRepository: CsvRepository = await CsvRepository.getInstanceAndloadCsvFrom(config.csvPath)
+        
     // Get the list of all venue IDs from the CSV file
-    const venueIDList: string[] = await (await csvRepository).getAllDataInColumnOf("venueID")
-
-    const requestBodyJson: Object = await jsonRepository()
+    const venueIDList: string[] = await venueDataCsvRepository.getAllDataInColumnOf("venueID")
+    const reqBodyObjectFromResource: Object = await jsonRepository()
 
     venueIDList.forEach(async venueID => {
         const requestURI: string = `${config.requestUriPath}${venueID}`
-        sendRequest(accessTokenFromCLI, requestURI, requestBodyJson)
+        sendRequest(accessTokenFromCLI, requestURI, reqBodyObjectFromResource)
     })
 
 }

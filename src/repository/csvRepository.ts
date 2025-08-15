@@ -44,10 +44,9 @@ interface ICsvRepository {
 
 
 export class CsvRepository implements ICsvRepository {
-    private static rawCsvData: string    
+    private static rawCsvData: string
 
-
-    public static async loadCsvData(csvPath: string){
+    public static async getInstanceAndloadCsvFrom(csvPath: string) {
         this.rawCsvData = await fileReader(csvPath)
         if (!this.rawCsvData) throw Error("The CSV file is empty or does not contain valid data.");
 
@@ -55,6 +54,8 @@ export class CsvRepository implements ICsvRepository {
     }
 
     public async getAllDataInColumnOf(columnName: string): Promise<string[]> {
+        if (!CsvRepository.rawCsvData) throw Error("CSV data is not loaded. Please call getInstanceAndloadCsvFrom first.");
+
         var listOfTargetIdsToUse: any[] = []
         var countLinesOfCsvRows: number = 1
 
