@@ -2,6 +2,7 @@ import { globalConfig }from "../../resource/globalConfig.js"
 
 export async function sendRequest(accessToken: string, requestURI: string, requestBodyJson: Object): Promise<boolean> {
     const response: Response = await fetch(requestURI, {
+
         method: globalConfig.requestMethod,
         headers: {
             'Content-Type': 'application/json',

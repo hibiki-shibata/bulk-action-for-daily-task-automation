@@ -26,6 +26,7 @@ export async function controller(accessTokenFromCLI: string): Promise<void> {
     venueIDList.forEach(async venueID => {
         const requestURI: string = `${config.requestUriPath}${venueID}`
         sendRequest(accessTokenFromCLI, requestURI, reqBodyObjectFromResource)
+
     })
 
 }
