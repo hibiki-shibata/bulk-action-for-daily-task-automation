@@ -9,6 +9,7 @@
      npm start
     ```
 
+
 ## How to customize Bulk Action🔧
 #### Set the source informations for Bulk Action:
 - Edit [`./resource/globalConfig.ts`](https://github.com/hibiki-shibata/bulk-action-for-daily-task-automation/blob/main/resource/globalConfig.ts) to define request URI/method/body information.

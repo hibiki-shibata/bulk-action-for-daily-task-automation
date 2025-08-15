@@ -5,7 +5,6 @@ import { jsonRepository } from '../repository/jsonRepository.js'
 import { globalConfigType } from '../type/globalConfType.js'
 
 
-
 const config: globalConfigType = {
     requestUriPath: globalConfig.requestUriPath,
     requestMethod: globalConfig.requestMethod,

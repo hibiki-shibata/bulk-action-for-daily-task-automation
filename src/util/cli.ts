@@ -10,8 +10,8 @@ const rl = readline.createInterface({
 
 
 export async function askAcccessTokenInCli(): Promise<void> {
-
     rl.question('Please enter your access token: ', (inputAccessToken: string) => {
+
         if (!inputAccessToken) throw Error("Access token is required")
 
         controller(inputAccessToken).then(() => { rl.close() }
