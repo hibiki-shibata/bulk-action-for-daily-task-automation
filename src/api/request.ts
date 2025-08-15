@@ -1,4 +1,4 @@
-import { globalConfig }from "../../globalConfig.js";
+import { globalConfig }from "../../resource/globalConfig.js";
 
 export async function sendRequest(accessToken: any, requestURI: RequestInfo | URL, requestBodyJson: any) {
     const response = await fetch(requestURI, {

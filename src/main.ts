@@ -1,6 +1,6 @@
 // This file is the entry point for the application
 // Run this file to start the application
-import { askAcccessTokenInCli } from './src/util/cli.js';
+import { askAcccessTokenInCli } from './util/cli.js';
 
 
 async function main(): Promise<void> {

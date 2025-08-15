@@ -1,5 +1,5 @@
 import readline from 'node:readline'
-import { controller } from '../controller.js'
+import { controller } from '../controller/controller.js'
 
 
 const rl = readline.createInterface({

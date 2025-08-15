@@ -1,4 +1,4 @@
-import { globalConfig } from "../../globalConfig.js";
+import { globalConfig } from "../../resource/globalConfig.js";
 import { fileReader } from '../util/fileReader.js'
 
 export async function csvRepository() {
