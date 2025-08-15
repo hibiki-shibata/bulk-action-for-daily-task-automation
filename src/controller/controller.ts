@@ -15,12 +15,15 @@ const config: globalConfigType = {
 
 
 export async function controller(accessTokenFromCLI: string): Promise<void> {
-    const venueDataCsvRepository: CsvRepository = await CsvRepository.getInstanceAndloadCsvFrom(config.csvPath)
+    const venueCsvRepository: CsvRepository = await CsvRepository.getInstanceAndloadCsvFrom(config.csvPath)
         
-    // Get the list of all venue IDs from the CSV file
-    const venueIDList: string[] = await venueDataCsvRepository.getAllDataInColumnOf("venueID")
+    // Get the list of all venue IDs from the column named "venueID" from CSV file.
+    const venueIDList: string[] = await venueCsvRepository.getAllDataInColumnOf("venueID")
+
+    // Get the request body object from the JSON file.
     const reqBodyObjectFromResource: Object = await jsonRepository()
 
+    // Doing bulk action by sending request to each venue ID.
     venueIDList.forEach(async venueID => {
         const requestURI: string = `${config.requestUriPath}${venueID}`
         sendRequest(accessTokenFromCLI, requestURI, reqBodyObjectFromResource)
