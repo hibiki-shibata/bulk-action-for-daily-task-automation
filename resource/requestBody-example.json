@@ -1,1 +1,9 @@
-{ "enabled": true, "integrator": "mwp_ordee"}
+{    
+    "id": "12345",
+    "enabled": true,
+    "integrator": "mwp_ordee",
+    "contact": {
+        "name": "example name",
+        "email": "example@gmail.com"
+    }
+}
