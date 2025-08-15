@@ -15,6 +15,7 @@ const config: globalConfigType = {
 
 export async function controller(accessTokenFromCLI: string): Promise<void> {
     const venueCsvRepository: CsvRepository = await CsvRepository.getInstanceAndloadCsvFrom(config.csvPath)
+
     const venueJsonRepository: JsonRepository = await JsonRepository.getInstanceAndLoadJsonFrom(config.jsonPath)
 
     //// ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓　WRITE YOUR CODE BELOW　↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ ////
@@ -24,11 +25,13 @@ export async function controller(accessTokenFromCLI: string): Promise<void> {
 
    
 
+
     // Get the list of all venue IDs from the column named "venueID" from CSV file.
     const venueIDList: string[] = await venueCsvRepository.getAllDataInColumnOf("venueID")
 
     // Get the request body object from the JSON file.
     const reqBodyObjectFromResource: Object = await venueJsonRepository.getAllData()
+
 
     // Doing bulk action by sending request to each venue ID.
     venueIDList.forEach(async venueID => {
@@ -39,7 +42,9 @@ export async function controller(accessTokenFromCLI: string): Promise<void> {
 
 
 
+
     //// ↑↑↑↑↑↑↑↑↑↑↑↑↑↓↑↑↓↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↓↑↑↓↑↑↑↑↑↑↑↑　WRITE YOUR CODE ABOVE　↑↑↑↑↑↑↑↑↑↑↑↑↑↓↑↑↓↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↓↑↑↓↑↑↑↑↑↑↑↑ ////
+
 
     })
 

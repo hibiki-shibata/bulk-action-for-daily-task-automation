@@ -1,16 +1,6 @@
 import { fileReader } from '../util/fileReader.js'
 
 
-// export async function jsonRepository(jsonFilePath: string): Promise<Object> {
-//     const rawCsvData: string = await fileReader(jsonFilePath)
-//     const parsedJsonData: Object = JSON.parse(rawCsvData.trim())
-
-
-//     if (!parsedJsonData) throw Error("The JSON file is empty or does not contain valid JSON data.");
-
-//     return parsedJsonData
-// }
-
 
 interface IJsonRepository {
     getAllData(): Promise<Object>

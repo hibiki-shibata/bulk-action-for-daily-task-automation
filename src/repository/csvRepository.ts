@@ -10,6 +10,7 @@ export class CsvRepository implements ICsvRepository {
     private static rawCsvData: string
 
     public static async getInstanceAndloadCsvFrom(csvPath: string): Promise<CsvRepository> {
+
         this.rawCsvData = await fileReader(csvPath)
         if (!this.rawCsvData) throw Error("The CSV file is empty or does not contain valid data.")
         return new CsvRepository()
