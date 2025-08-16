@@ -9,7 +9,6 @@ import { ICsvRepository } from '../type/csvRepositoryType.js'
 import { IJsonRepository } from '../type/jsonRepository.js'
 import { IPlaceHolderReplacer } from '../type/placeHolderReplacer.js'
 
-
 // ~~~~~~~~~~~~~~~~~~ Useful methods/variables for customization: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -35,8 +34,8 @@ import { IPlaceHolderReplacer } from '../type/placeHolderReplacer.js'
 
 
 
+// ✅ Below codes, which is used for default Bulk behavior are the actual example of how to use the above methods/variables.
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 
 export async function headerAuthorizationBOdyJsonService(accessToken: string): Promise<void> {
 
@@ -47,8 +46,7 @@ export async function headerAuthorizationBOdyJsonService(accessToken: string): P
     // Get Target value list from CSV.
     const listOfTargetValuesFromCsv: string[] = await resourceCsvRepository.getAllDataInColumnOf(globalConfig.csv_column_name)
 
-    // Get request body Object from JSON.
-    // This JSON file should contain {TARGET-VALUE} placeholder.
+    // Get request body Object from JSON file.
     const resourceJson: Object = await resourceJsonObjRepository.getAllData()
 
 // ========================================================================================================================================================================
@@ -57,7 +55,7 @@ export async function headerAuthorizationBOdyJsonService(accessToken: string): P
 //   Sample methods/variables useful for customization are provided in the bottom of this file.
 //   Feel free to contact HIBIKI for question! 
 
-// ============================================= WRITE YOUR CODE BELOW ===================================================================================================+
+// =============================================⚠️ WRITE YOUR CODE BELOW ⚠️===================================================================================================+
 
 
 
@@ -98,7 +96,7 @@ export async function headerAuthorizationBOdyJsonService(accessToken: string): P
 
 
 
-// ============================================ WRITE YOUR CODE ABOVE =====================================================================================================
+// ============================================⚠️ WRITE YOUR CODE ABOVE ⚠️=====================================================================================================
 
 //                                             Above codes are example.
 
