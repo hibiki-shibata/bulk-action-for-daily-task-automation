@@ -6,8 +6,8 @@ import { IJsonRepository } from '../type/jsonRepository.js'
 export class JsonRepository implements IJsonRepository {
     private static JsonDataALl: Object
 
-    public static async getInstanceAndLoadJsonFrom(jsonPath: string): Promise<JsonRepository> {
-        const JsonDataAllInString = await fileReader(jsonPath)
+    public static getInstanceAndLoadJsonFrom(jsonPath: string): JsonRepository {
+        const JsonDataAllInString = fileReader(jsonPath)
         this.JsonDataALl = JSON.parse(JsonDataAllInString.trim())
 
         if (!this.JsonDataALl) throw Error("The JSON file is empty or does not contain valid data.")

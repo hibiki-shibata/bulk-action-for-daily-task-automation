@@ -1,6 +1,8 @@
 import { globalConfigType } from "../src/type/globalConfType.js"; export const globalConfig: globalConfigType = {
   // =====================================================================================================================================
+
   //                       Feel free to contact HIBIKI for question !
+
   // ============================📝 WRITE YOUR CODE BELOW 📝==================================================================================
 
 
@@ -17,8 +19,8 @@ import { globalConfigType } from "../src/type/globalConfType.js"; export const g
   request_uri: "https://example-restautnt-management/open/[PLACE-HOLDER]/demo",
 
 
-
-  // C) Column name in CSV, that contains data for place holders [PLACE-HOLDER]📊.
+  // C) Column name in CSV
+  //    Data in there will replace [PLACE-HOLDER].
   csv_column_name: "Venue Address",
 
 
@@ -35,7 +37,9 @@ import { globalConfigType } from "../src/type/globalConfType.js"; export const g
 
 
   // ============================📝 WRITE YOUR CODE ABOVE 📝==================================================================================
+
   //                      Feel free to contact HIBIKI for question !
+
   // =====================================================================================================================================
 }
 
