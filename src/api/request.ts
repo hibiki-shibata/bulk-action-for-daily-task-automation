@@ -1,9 +1,14 @@
-import { globalConfig }from "../../resource/globalConfig.js"
+interface IRequestArgs {
+    requestURI: string,
+    requestMethod: string,
+    accessToken: string,
+    requestBodyJson: Object
+}
 
-export async function sendRequest(accessToken: string, requestURI: string, requestBodyJson: Object): Promise<boolean> {
+export async function sendRequest({ requestURI, requestMethod, accessToken, requestBodyJson }: IRequestArgs): Promise<boolean> {
     const response: Response = await fetch(requestURI, {
 
-        method: globalConfig.requestMethod,
+        method: requestMethod,
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `${accessToken}`

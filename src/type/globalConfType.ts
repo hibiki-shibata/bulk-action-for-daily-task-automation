@@ -1,6 +1,7 @@
 export interface globalConfigType {
-    requestUriPath: string,
-    requestMethod: string, 
-    csvPath: string,
-    jsonPath: string
+    request_method: string,
+    request_uri: string,
+    csv_column_name: string,
+    csv_file_path: string,
+    json_file_path: string,
 }

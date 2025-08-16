@@ -3,6 +3,8 @@ SHELL=/bin/bash
 .PHONY: help
 help:
 	@echo "Available commands:"
+	@echo "  make easy      - All In One. Install dependencies, compile TypeScript, and run the application in one step"
+	@echo "  make setup     - Install dependencies and compile TypeScript"
 	@echo "  make run       - Compile TypeScript and run the application"
 	@echo "  make clean     - Remove compiled files from the dist directory"
 	@echo "  make cleanup   - Remove node_modules and dist directories"
@@ -31,6 +33,10 @@ run:
 setup:
 	npm install
 	tsc
-	@echo "Build completed!🎉 You can now run the BulkTool using 'make run'"
+	@echo "Build completed!✅ You can now run the BulkTool using 'make run'"
 
+
+.PHONY: easy
+easy:
+	npm install --silent && npm start --silent
 	
