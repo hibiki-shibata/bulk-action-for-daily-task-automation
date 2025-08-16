@@ -1,5 +1,5 @@
 ## Expected behavior overview ~ step by step ~ 📝
-1. Prepare resource files. (Check "What you manually prepare")
+1. Prepare resource files. (Check out ["What you manually prepare"](https://github.com/hibiki-shibata/bulk-action-for-daily-task-automation/blob/main/README.md#what-you-manually-prepare))
 2. Run this Project in CLI.
 3. You will be asked for Authorization Token.
 4. Bulk task automatically starts.
@@ -13,11 +13,11 @@
 
 ## What you manually prepare📝:
 1.Edit [`./resource/globalConfig.ts`](https://github.com/hibiki-shibata/bulk-action-for-daily-task-automation/blob/main/resource/globalConfig.ts)...Configure Request method, URI, CSV column name🔧.
-- - Inspect request format(Request URL, Request Method, Request Body) in network log on your Browser, and copy it.
+   - Inspect request format(Request URL, Request Method, Request Body) in network log on your Browser, and copy it.
 
 2. Edit/Create [JSON file](https://github.com/hibiki-shibata/bulk-action-for-daily-task-automation/blob/main/resource/request-body.json)....Define the structure of request body📝.
-  - Copy the inspected request Body in the step1.
-  - Use [PLACE-HOLDER]
+   - Copy the inspected request Body in the step1.
+   - Use [PLACE-HOLDER]
    
 3. Edit/Create [CSV file](https://github.com/hibiki-shibata/bulk-action-for-daily-task-automation/blob/main/resource/target-values.csv)....Define the target values of request📝.
 
@@ -37,8 +37,8 @@
     ```bash 
     npm install
     ```
-Now, Let's run ~🔥
-3. Run the project by command
+    
+    Run the project by command🔥
     ```bash
     npm start
     ```
