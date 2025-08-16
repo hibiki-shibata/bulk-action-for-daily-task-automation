@@ -4,6 +4,8 @@
     "integrator": "mwp_ordee",
     "contact": {
         "name": "example name",
-        "email": "example@gmail.com"
-    }
+        "email": "example@gmail.com",
+        "randomID": "[PLACE-HOLDER]"
+    },
+    "targetID": "[PLACE-HOLDER]"
 }

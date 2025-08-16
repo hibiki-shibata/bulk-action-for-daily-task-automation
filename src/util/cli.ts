@@ -1,5 +1,6 @@
 import readline from 'node:readline'
-import { controller } from '../controller/controller.js'
+import { BulkActionTypeController } from '../controller/controller.js'
+import { IBulkActionTypeController } from '../type/IBulkActionTypeControllerType.js'
 
 
 const rl = readline.createInterface({
@@ -9,15 +10,29 @@ const rl = readline.createInterface({
 })
 
 
+const separationLine = "================================================="
+
+
+// This function prompts the user for an access token in the CLI
 export async function askAcccessTokenInCli(): Promise<void> {
-    rl.question('Please enter your access token: ', (inputAccessToken: string) => {
+    rl.question(
+        `${separationLine}`
+        + "\n" +
+        `STARTING BULK ACTION ✅`
+        + "\n" +
+        `Please paste your Authorization token below🤓`
+        + "\n" +
+        `${separationLine}\n->`,
 
+        // This function will be called when the user inputs their access token
+        async (inputAccessToken: string) => {
+            const bulkActionTypeController: IBulkActionTypeController = await BulkActionTypeController.getInstanceAndSetAccessToken(inputAccessToken)
+            bulkActionTypeController.header_Authorization_body_Json().then(() => { rl.close() }
 
-        if (!inputAccessToken) throw Error("Access token is required")
-
-        controller(inputAccessToken).then(() => { rl.close() }
-        )
-
-    })
+            ).finally(() => {
+                console.log(`${separationLine}\nExecution complete! I mean..\nHEY, DONE❤️`)
+            }
+            )
+        })
 }
 

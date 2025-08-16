@@ -1,68 +1,32 @@
-import { globalConfig } from '../../resource/globalConfig.js'
-import { sendRequest } from '../api/request.js'
-import { CsvRepository } from '../repository/csvRepository.js'
-import { JsonRepository } from '../repository/jsonRepository.js'
-import { ICsvRepository } from '../type/csvRepositoryType.js'
-import { IJsonRepository } from '../type/jsonRepository.js'
-import { globalConfigType } from '../type/globalConfType.js'
-
-
-const config: globalConfigType = {
-    requestUriPath: globalConfig.requestUriPath,
-    requestMethod: globalConfig.requestMethod,
-    csvPath: globalConfig.requestDataResourcePath.csvPath,
-    jsonPath: globalConfig.requestDataResourcePath.jsonPath
-}
+import { IBulkActionTypeController } from '../type/IBulkActionTypeControllerType.js'
+import { headerAuthorizationBOdyJsonService } from '../service/headerAuthorizationBodyJsonService.js'
 
 
 
-export async function controller(accessTokenFromCLI: string): Promise<void> {
-    // Load CSV and JSON resource files
-    const targetDataCsvRepository: ICsvRepository = await CsvRepository.getInstanceAndloadCsvFrom(config.csvPath)
-    const resourceJsonObjRepository: IJsonRepository = await JsonRepository.getInstanceAndLoadJsonFrom(config.jsonPath)
+export class BulkActionTypeController implements IBulkActionTypeController {
+    private static accessToken: string
 
-    // ===============================================================================================================================================================
-    //   You can use the config object to access the global configuration values.
-    //   Below codes are example.
-    // ============================================= WRITE YOUR CODE BELOW ===========================================================================================
-
-
-
-
-
-    // A) get Target data list from CSV file for repeating and include it in each request.
-    const listOfTargetData: string[] = await targetDataCsvRepository.getAllDataInColumnOf("venueId")
-
-    // B) get default Request body object from JSON file to use in each request.
-    const resourceJsonObj: Object = await resourceJsonObjRepository.getAllData()
-
-
-    // C-1) Send requests using "forEach", which actually play a role "bulk request".
-    listOfTargetData.forEach(async (targetID: string) => {
-        const requestURI: string = `${config.requestUriPath}${targetID}`
-        const requestBody: Object = resourceJsonObj
-        sendRequest(accessTokenFromCLI, requestURI, requestBody)
+    // Constructor to initialize the access token.
+    public static async getInstanceAndSetAccessToken(accessToken: string): Promise<BulkActionTypeController> {
+        this.accessToken = accessToken
+        return new BulkActionTypeController()
     }
-    )
+
+    public constructor() {
+        if (!BulkActionTypeController.accessToken) console.log("WARNING!!!!\nAccess token is not set. Please call getInstanceAndSetAccessToken first.")
+    }
+
+    private requiredAccessTokenValidator(): void {
+        if (!BulkActionTypeController.accessToken) throw new Error("Access token is not set. Please call getInstanceAndSetAccessToken first.")
+    }
 
 
-    // // C-2) Case where you want to modify the request body for each request.
-    // listOfTargetData.forEach(async (targetID: string) => {
-    //     const requestURI: string = config.requestUriPath
-    //     const requestBody: Object = {
-    //         ...resourceJsonObj,
-    //         id: targetID,
-    //     }
+    public async header_Authorization_body_Json(): Promise<void> {
+        this.requiredAccessTokenValidator()
 
-    //     await sendRequest(accessTokenFromCLI, requestURI, requestBody)
-    // })
-
-
-
-
-    // ============================================ WRITE YOUR CODE ABOVE ===========================================================================================
-    //   Above codes are example.
-    // ===============================================================================================================================================================
-
+        // Call the service to perform the bulk action with the access token.
+        headerAuthorizationBOdyJsonService(BulkActionTypeController.accessToken)
+    }
 }
+
 
