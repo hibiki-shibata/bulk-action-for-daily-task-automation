@@ -30,7 +30,7 @@ import { globalConfigType } from "../src/type/globalConfType.js"; export const g
 
 
   // D) OPTIONAL‼️ : Paths to the resource files.
-  //                 Only if you don't want to use your prefered files.
+  //                 Only if you don't wamt to use default file.
   csv_file_path: "./resource/target-values.csv",
   json_file_path: "./resource/request-body.json",
 
