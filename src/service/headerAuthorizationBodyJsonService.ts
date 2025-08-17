@@ -37,7 +37,7 @@ import { IPlaceHolderReplacer } from '../type/placeHolderReplacer.js'
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-export async function headerAuthorizationBOdyJsonService(accessToken: string): Promise<void> {
+export async function headerAuthorizationBodyJsonService(accessToken: string): Promise<void> {
 
     // Load the CSV and JSON resource files, using specified path.
     const resourceJsonObjRepository: IJsonRepository = JsonRepository.getInstanceAndLoadJsonFrom(globalConfig.json_file_path)

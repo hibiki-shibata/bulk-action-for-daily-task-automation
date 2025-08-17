@@ -1,5 +1,5 @@
 import { IBulkActionTypeController } from '../type/IBulkActionTypeControllerType.js'
-import { headerAuthorizationBOdyJsonService } from '../service/headerAuthorizationBodyJsonService.js'
+import { headerAuthorizationBodyJsonService } from '../service/headerAuthorizationBodyJsonService.js'
 
 
 
@@ -25,7 +25,7 @@ export class BulkActionTypeController implements IBulkActionTypeController {
         this.requiredAccessTokenValidator()
 
         // Call the service to perform the bulk action with the access token.
-        headerAuthorizationBOdyJsonService(BulkActionTypeController.accessToken)
+        headerAuthorizationBodyJsonService(BulkActionTypeController.accessToken)
     }
 }
 
