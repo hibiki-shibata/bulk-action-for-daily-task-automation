@@ -21,20 +21,22 @@ export class CsvRepository implements ICsvRepository {
         let countLinesOfCsvRows: number = 2 // Start counting from 2 to skip the header row
         const csvDataRows: string[] = CsvRepository.rawCsvData.split('\n')
 
+        // Get the Column names from the first line of the CSV data. And Remove the line from the data rows.
+        const getLineOfColumnNames: string = csvDataRows.shift() || "Columns Name not found"
 
-        // Get the Index of the asked column name, and removing the line of Column name from the data rows
-        const getColumnNameIndex: number = csvDataRows.shift()?.split(',').indexOf(targetColumnName) || -1
+        // Get the Index of the target column name.
+        const getTargetColumnNameIndex: number = getLineOfColumnNames.split(',').indexOf(targetColumnName)
 
-        // Check if the asked column name actually exists
-        if (getColumnNameIndex === -1) throw Error(`Column "${targetColumnName}" not found in the CSV file:(((`)
+        // Check if the target column name actually exists
+        if (getTargetColumnNameIndex === -1) throw Error(`Column "${targetColumnName}" not found in the CSV file:(((`)
 
 
-        // Get from entire rows target IDs in the specified column 
+        // Get from values in row of the target column 
         csvDataRows.forEach((rowOfCsv: string) => {
             const rowData: string[] = rowOfCsv.split(',')
 
-            // Check if the row has enough columns to avoid index out of range error
-            const targetValue: string = rowData[getColumnNameIndex]?.trim() || ""
+            // Check if each row has the target column value
+            const targetValue: string = rowData[getTargetColumnNameIndex]?.trim() || ""
             if (!targetValue) throw Error(`Row [${countLinesOfCsvRows}] does not have value of ${targetColumnName}.`)
 
             listOfTargetValue.push(targetValue)
