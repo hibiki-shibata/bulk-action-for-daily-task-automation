@@ -19,7 +19,7 @@ import { globalConfigType } from "../src/type/globalConfType.js"; export const g
   request_uri: "https://example-restautnt-management/open/[PLACE-HOLDER]/demo",
 
 
-  // C) Column name in CSV
+  // C) Target Column name in CSV
   //    Data in there will replace [PLACE-HOLDER].
   csv_column_name: "Venue Address",
 

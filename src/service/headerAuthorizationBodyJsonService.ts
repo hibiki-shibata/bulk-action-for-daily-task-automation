@@ -20,9 +20,9 @@ import { IPlaceHolderReplacer } from '../type/placeHolderReplacer.js'
 
 
 //   2. Get all Data from the JSON file.
-//      resourceJson
+//      resourceOf_request_body_json
 //          e.g.
-//             console.log(resourceJson) // returns all your JSON data as an Object
+//             console.log(resourceOf_request_body_json) // returns all your JSON data as an Object
 
 
 //   3. Replace place specified values in the URI or JSON.
@@ -44,10 +44,10 @@ export async function headerAuthorizationBOdyJsonService(accessToken: string): P
     const resourceCsvRepository: ICsvRepository = CsvRepository.getInstanceAndloadCsvFrom(globalConfig.csv_file_path)
 
     // Get Target value list from CSV.
-    const listOfTargetValuesFromCsv: string[] = await resourceCsvRepository.getAllDataInColumnOf(globalConfig.csv_column_name)
+    const rowsList_of_target_csv_column: string[] = await resourceCsvRepository.getAllDataInColumnOf(globalConfig.csv_column_name)
 
     // Get request body Object from JSON file.
-    const resourceJson: Object = await resourceJsonObjRepository.getAllData()
+    const resourceOf_request_body_json: Object = await resourceJsonObjRepository.getAllData()
 
 // ========================================================================================================================================================================
 //   Below codes are for customize the behavior of this Action.
@@ -57,19 +57,21 @@ export async function headerAuthorizationBOdyJsonService(accessToken: string): P
 
 
 
+    // SAMPLE.1 To Get all dattaset in a CSV clumns data named "Contact"
+    // const listOf_contact_column: string[] = await resourceCsvRepository.getAllDataInColumnOf("Contact")
 
 
 
 
-
-    // >>>>>>>>>Start request iteration by rows of specified CSV Column Name. 
-    listOfTargetValuesFromCsv.forEach((targetValue: string) => {
+    // <<<<<<<<<<< START REQUEST ITERATION, by using rows in the config-specified CSV Column. <<<<<<<<<<<
+    rowsList_of_target_csv_column.forEach((row_of_target_csv_column: string) => {
+    // >>>>>>>>>>>> LOGIC FOR EACH ROW BELOW >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>        
 
 
         // Replace [PLACE-HOLDER] in the URI and JSON with the actual target value.
-        const placeHolderReplacer: IPlaceHolderReplacer = PlaceHolderReplacer.replaceOf("[PLACE-HOLDER]").replaceBy(targetValue)
+        const placeHolderReplacer: IPlaceHolderReplacer = PlaceHolderReplacer.replaceOf("[PLACE-HOLDER]").replaceBy(row_of_target_csv_column)
         const requestURI_without_placeholder: string = placeHolderReplacer.replaceUriFrom(globalConfig.request_uri)
-        const requestJsonBody_without_placeholder: Object = placeHolderReplacer.replaceJsonObjFrom(resourceJson)
+        const requestJsonBody_without_placeholder: Object = placeHolderReplacer.replaceJsonObjFrom(resourceOf_request_body_json)
 
 
         // Send request
@@ -81,17 +83,10 @@ export async function headerAuthorizationBOdyJsonService(accessToken: string): P
         })
 
 
-
-
-
-
-
-
-
 // ============================================⚠️ WRITE YOUR CODE ABOVE ⚠️=====================================================================================================
 //                                             Above codes are example.
 // ========================================================================================================================================================================
-            .then((isSuccess) => {isSuccess ? console.log(`✅ Successfully: [${targetValue}]`) : console.warn(`❌ Failed: [${targetValue}]`);})
+            .then((isSuccess) => {isSuccess ? console.log(`✅ Successfully: [${row_of_target_csv_column}]`) : console.warn(`❌ Failed: [${row_of_target_csv_column}]`);})
     })
 
 }
