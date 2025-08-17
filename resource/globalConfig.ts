@@ -15,12 +15,12 @@ import { globalConfigType } from "../src/type/globalConfType.js"; export const g
 
 
   // B) Base Request URI.
-  //    Optionally, use [PLACE-HOLDER] as a placeholder for replacing it with data from CSV.
+  //    Optionally, use [PLACE-HOLDER] as a placeholder for replacing it with data in the CSV column below.
   request_uri: "https://example-restautnt-management/open/[PLACE-HOLDER]/demo",
 
 
-  // C) Target Column name in CSV
-  //    Data in there will replace [PLACE-HOLDER].
+  // C) Target Column name in CSV file.
+  //    Data in this column will replace [PLACE-HOLDER].
   csv_column_name: "Venue Address",
 
 
