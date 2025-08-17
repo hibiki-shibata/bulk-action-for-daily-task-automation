@@ -9,24 +9,23 @@ import { ICsvRepository } from '../type/csvRepositoryType.js'
 import { IJsonRepository } from '../type/jsonRepository.js'
 import { IPlaceHolderReplacer } from '../type/placeHolderReplacer.js'
 
+
 // ~~~~~~~~~~~~~~~~~~ Useful methods/variables for customization: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
-
-// 1. Get all data from your arbitrary Column in the CSV.
+//   1. Get all data from your arbitrary Column in the CSV.
 //      resourceCsvRepository.getAllDataInColumnOf(<Column Name Here>)
 //         e.g.
 //            const abc: string[] = await resourceCsvRepository.getAllDataInColumnOf("Venue Address")
 //            console.log(abc) // returns all data in the specified column as an array of strings
 
 
-// 2. Get all Data from the JSON file.
+//   2. Get all Data from the JSON file.
 //      resourceJson
 //          e.g.
 //             console.log(resourceJson) // returns all your JSON data as an Object
 
 
-// 3. Replace place specified values in the URI or JSON.
+//   3. Replace place specified values in the URI or JSON.
 //       PlaceHolderReplacer.replaceOf(<String value to replace>).replaceBy(<String value to replace By>)
 //          e.g. 
 //              const abc = PlaceHolderReplacer.replaceOf("Paris").replaceBy("Tokyo")
@@ -36,6 +35,7 @@ import { IPlaceHolderReplacer } from '../type/placeHolderReplacer.js'
 
 // ✅ Below codes, which is used for default Bulk behavior are the actual example of how to use the above methods/variables.
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
 export async function headerAuthorizationBOdyJsonService(accessToken: string): Promise<void> {
 
@@ -50,11 +50,8 @@ export async function headerAuthorizationBOdyJsonService(accessToken: string): P
     const resourceJson: Object = await resourceJsonObjRepository.getAllData()
 
 // ========================================================================================================================================================================
-
 //   Below codes are for customize the behavior of this Action.
-//   Sample methods/variables useful for customization are provided in the bottom of this file.
 //   Feel free to contact HIBIKI for question! 
-
 // =============================================⚠️ WRITE YOUR CODE BELOW ⚠️===================================================================================================+
 
 
@@ -65,7 +62,7 @@ export async function headerAuthorizationBOdyJsonService(accessToken: string): P
 
 
 
-    // Iterate based on data in specified Column Name from CSV.
+    // >>>>>>>>>Start request iteration by rows of specified CSV Column Name. 
     listOfTargetValuesFromCsv.forEach((targetValue: string) => {
 
 
@@ -73,7 +70,6 @@ export async function headerAuthorizationBOdyJsonService(accessToken: string): P
         const placeHolderReplacer: IPlaceHolderReplacer = PlaceHolderReplacer.replaceOf("[PLACE-HOLDER]").replaceBy(targetValue)
         const requestURI_without_placeholder: string = placeHolderReplacer.replaceUriFrom(globalConfig.request_uri)
         const requestJsonBody_without_placeholder: Object = placeHolderReplacer.replaceJsonObjFrom(resourceJson)
-
 
 
         // Send request
@@ -84,10 +80,6 @@ export async function headerAuthorizationBOdyJsonService(accessToken: string): P
             bodyJson: requestJsonBody_without_placeholder
         })
 
-    })
-
-
-
 
 
 
@@ -97,10 +89,11 @@ export async function headerAuthorizationBOdyJsonService(accessToken: string): P
 
 
 // ============================================⚠️ WRITE YOUR CODE ABOVE ⚠️=====================================================================================================
-
 //                                             Above codes are example.
-
 // ========================================================================================================================================================================
+            .then((isSuccess) => {isSuccess ? console.log(`✅ Successfully: [${targetValue}]`) : console.warn(`❌ Failed: [${targetValue}]`);})
+    })
+
 }
 
 

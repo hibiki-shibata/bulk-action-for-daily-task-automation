@@ -1,5 +1,5 @@
 import readline from 'node:readline'
-import { BulkActionTypeController } from '../controller/controller.js'
+import { BulkActionTypeController } from '../controller/BulkActionTypeController.js'
 import { IBulkActionTypeController } from '../type/IBulkActionTypeControllerType.js'
 
 
@@ -27,12 +27,8 @@ export async function askAcccessTokenInCli(): Promise<void> {
         // This function will be called when the user inputs their access token
         async (inputAccessToken: string) => {
             const bulkActionTypeController: IBulkActionTypeController = await BulkActionTypeController.getInstanceAndSetAccessToken(inputAccessToken)
-            bulkActionTypeController.header_Authorization_body_Json().then(() => { rl.close() }
-
-            ).finally(() => {
-                console.log(`${separationLine}\nExecution complete! I mean..\nHEY, DONE❤️`)
-            }
-            )
+            bulkActionTypeController.header_Authorization_body_Json()
+            rl.close()
         })
 }
 
