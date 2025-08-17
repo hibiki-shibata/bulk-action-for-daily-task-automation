@@ -28,20 +28,13 @@ export class PlaceHolderReplacer implements IPlaceHolderReplacer {
 
     // Replace [PLACE_HOLDER] in the URI with the actual target value.
     replaceUriFrom(request_uri_from_globalConfig: string): string {
-        if (!this.newValue) throw new Error("New value is not set. Please call replaceBy first.")
-
         return request_uri_from_globalConfig.replaceAll(this.placeholdername, this.newValue)
     }
 
+
     // Replace [PLACE_HOLDER] in the JSON data with the actual target value.
     replaceJsonObjFrom(jsonData: Object): Object {
-        if (!this.newValue) throw new Error("New value is not set. Please call replaceBy first.")
-
-        const jsonString = JSON.stringify(jsonData)
-        const updatedJsonString = jsonString.replaceAll(this.placeholdername, this.newValue)
-        return JSON.parse(updatedJsonString)
+        return JSON.parse(JSON.stringify(jsonData).replaceAll(this.placeholdername, this.newValue))
     }
-
-
 
 }
