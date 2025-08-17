@@ -1,17 +1,18 @@
 interface IRequestArgs {
     URI: string,
     methodType: string,
+    securityHeaderName: string,
     accessToken: string,
     bodyJson: Object
 }
 
-export async function sendRequest({ URI, methodType, accessToken, bodyJson }: IRequestArgs): Promise<boolean> {
+export async function sendRequest({ URI, methodType, securityHeaderName, accessToken, bodyJson }: IRequestArgs): Promise<boolean> {
     const response: Response = await fetch(URI, {
 
-        method: methodType,
+        method: `${methodType}`,
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `${accessToken}`
+            [securityHeaderName]: `${accessToken}`
         },
         body: JSON.stringify(bodyJson),
         signal: AbortSignal.timeout(5000)

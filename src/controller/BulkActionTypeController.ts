@@ -1,4 +1,4 @@
-import { IBulkActionTypeController } from '../type/IBulkActionTypeControllerType.js'
+import { IBulkActionTypeController } from '../type/bulkActionTypeControllerType.js'
 import { headerAuthorizationBodyJsonService } from '../service/headerAuthorizationBodyJsonService.js'
 
 

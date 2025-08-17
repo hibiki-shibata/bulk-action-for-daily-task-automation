@@ -16,16 +16,17 @@ export class CsvRepository implements ICsvRepository {
 
     }
 
-    public async getAllDataInColumnOf(columnName: string): Promise<string[]> {
-        let listOfTargetIdsToUse: any[] = []
+    public async getAllDataInColumnOf(targetColumnName: string): Promise<string[]> {
+        let listOfTargetValue: any[] = []
         let countLinesOfCsvRows: number = 2 // Start counting from 2 to skip the header row
         const csvDataRows: string[] = CsvRepository.rawCsvData.split('\n')
 
-        // Get the Index of the asked column name, while removing headers
-        const getColumnNameIndex: number = csvDataRows.shift().split(',').indexOf(columnName)
+
+        // Get the Index of the asked column name, and removing the line of Column name from the data rows
+        const getColumnNameIndex: number = csvDataRows.shift()?.split(',').indexOf(targetColumnName) || -1
 
         // Check if the asked column name actually exists
-        if (getColumnNameIndex === -1) throw Error(`Column "${columnName}" not found in the CSV file:(((`)
+        if (getColumnNameIndex === -1) throw Error(`Column "${targetColumnName}" not found in the CSV file:(((`)
 
 
         // Get from entire rows target IDs in the specified column 
@@ -33,18 +34,17 @@ export class CsvRepository implements ICsvRepository {
             const rowData: string[] = rowOfCsv.split(',')
 
             // Check if the row has enough columns to avoid index out of range error
-            if (rowData.length < getColumnNameIndex) throw Error(`Row [${countLinesOfCsvRows}] does not have value of ${columnName}.`)
+            const targetValue: string = rowData[getColumnNameIndex]?.trim() || ""
+            if (!targetValue) throw Error(`Row [${countLinesOfCsvRows}] does not have value of ${targetColumnName}.`)
 
-            const targetID = rowData[getColumnNameIndex].trim()
-            if (targetID) listOfTargetIdsToUse.push(targetID)
-
+            listOfTargetValue.push(targetValue)
             countLinesOfCsvRows += 1
         }
         )
 
         // Ensure the target IDs list is not empty
-        if (listOfTargetIdsToUse.length === 0) throw Error("The CSV file is empty or does not contain valid venue IDs.");
+        if (listOfTargetValue.length === 0) throw Error("The CSV file is empty or does not contain valid venue IDs.");
 
-        return listOfTargetIdsToUse
+        return listOfTargetValue
     }
 }

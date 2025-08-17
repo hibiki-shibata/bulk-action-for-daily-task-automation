@@ -6,8 +6,8 @@ import { sendRequest } from '../api/request.js'
 import { CsvRepository } from '../repository/csvRepository.js'
 import { JsonRepository } from '../repository/jsonRepository.js'
 import { ICsvRepository } from '../type/csvRepositoryType.js'
-import { IJsonRepository } from '../type/jsonRepository.js'
-import { IPlaceHolderReplacer } from '../type/placeHolderReplacer.js'
+import { IJsonRepository } from '../type/jsonRepositoryType.js'
+import { IPlaceHolderReplacer } from '../type/placeHolderReplacerType.js'
 
 
 // ~~~~~~~~~~~~~~~~~~ Useful methods/variables for customization: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -78,6 +78,7 @@ export async function headerAuthorizationBodyJsonService(accessToken: string): P
         sendRequest({
             URI: requestURI_without_placeholder,
             methodType: globalConfig.request_method,
+            securityHeaderName: globalConfig.seuciry_header_name,
             accessToken: accessToken,
             bodyJson: requestJsonBody_without_placeholder
         })
