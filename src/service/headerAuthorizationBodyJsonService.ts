@@ -6,8 +6,8 @@ import { sendRequest } from '../api/request.js'
 import { CsvRepository } from '../repository/csvRepository.js'
 import { JsonRepository } from '../repository/jsonRepository.js'
 import { ICsvRepository } from '../type/csvRepositoryType.js'
-import { IJsonRepository } from '../type/jsonRepository.js'
-import { IPlaceHolderReplacer } from '../type/placeHolderReplacer.js'
+import { IJsonRepository } from '../type/jsonRepositoryType.js'
+import { IPlaceHolderReplacer } from '../type/placeHolderReplacerType.js'
 
 
 // ~~~~~~~~~~~~~~~~~~ Useful methods/variables for customization: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -75,18 +75,22 @@ export async function headerAuthorizationBodyJsonService(accessToken: string): P
 
 
         // Send request
-        sendRequest({
-            URI: requestURI_without_placeholder,
-            methodType: globalConfig.request_method,
-            accessToken: accessToken,
-            bodyJson: requestJsonBody_without_placeholder
-        })
+        // sendRequest({
+        //     URI: requestURI_without_placeholder,
+        //     methodType: globalConfig.request_method,
+        //     securityHeaderName: globalConfig.seuciry_header_name,
+        //     accessToken: accessToken,
+        //     bodyJson: requestJsonBody_without_placeholder
+        // })
+
+        console.log(`Sending request to: ${requestURI_without_placeholder}`)
+        console.log(`With body: ${JSON.stringify(requestJsonBody_without_placeholder, null, 2)}`)
 
 
 // ============================================⚠️ WRITE YOUR CODE ABOVE ⚠️=====================================================================================================
 //                                             Above codes are example.
 // ========================================================================================================================================================================
-            .then((isSuccess) => {isSuccess ? console.log(`✅ Successfully: [${row_of_target_csv_column}]`) : console.warn(`❌ Failed: [${row_of_target_csv_column}]`);})
+            // .then((isSuccess) => {isSuccess ? console.log(`✅ Successfully: [${row_of_target_csv_column}]`) : console.warn(`❌ Failed: [${row_of_target_csv_column}]`);})
     })
 
 }

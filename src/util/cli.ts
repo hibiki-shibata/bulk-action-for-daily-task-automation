@@ -1,6 +1,6 @@
 import readline from 'node:readline'
-import { BulkActionTypeController } from '../controller/BulkActionTypeController.js'
-import { IBulkActionTypeController } from '../type/IBulkActionTypeControllerType.js'
+import { BulkActionTypeController } from '../controller/bulkActionTypeController.js'
+import { IBulkActionTypeController } from '../type/bulkActionTypeControllerType.js'
 
 
 const rl = readline.createInterface({
