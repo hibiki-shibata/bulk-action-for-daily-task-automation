@@ -1,3 +1,3 @@
 export interface IJsonRepository {
-    getAllData(): Promise<Object>
+    getJsonAll(): Object
 }

@@ -26,7 +26,7 @@ import { globalConfigType } from "../src/type/globalConfigType.js"; export const
 
   // C) Primary Column name in CSV file.
   //        Data in this column will replace [PLACE-HOLDER].
-  csv_column_name: "customerID",
+  base_csv_column_name: "customerID",
 
 
 

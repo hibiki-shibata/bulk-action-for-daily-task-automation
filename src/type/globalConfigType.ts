@@ -2,7 +2,7 @@ export interface globalConfigType {
     request_method: string,
     request_uri: string,
     seuciry_header_name: string,
-    csv_column_name: string,
+    base_csv_column_name: string,
     optional_csv_column_name_1?: string,
     optional_csv_column_name_2?: string,
     optional_csv_column_name_3?: string,

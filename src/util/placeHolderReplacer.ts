@@ -3,38 +3,41 @@ import { IPlaceHolderReplacer } from "../type/placeHolderReplacerType.js";
 
 
 export class PlaceHolderReplacer implements IPlaceHolderReplacer {
-    private placeholdername: string
+    private placeholderName: string
     private newValue!: string;
 
 
-    public static replaceOf(placeholder: string): PlaceHolderReplacer {
+    // public static 
+
+
+    public static for_placeHolder(placeholder: string): PlaceHolderReplacer {
         if (!placeholder) throw new Error("Placeholder name is not provided.")
         return new PlaceHolderReplacer(placeholder)
     }
 
 
-    public replaceBy(newValue: string): PlaceHolderReplacer {
-        if (!this.placeholdername) throw new Error("Placeholder name is not set. Please call placeHolder first.")
+    public replaceWith(newValue: string): PlaceHolderReplacer {
+        if (!this.placeholderName) throw new Error("Placeholder name is not set. Please call placeHolder first.")
         this.newValue = newValue
         return this
     }
 
 
     private constructor(placeholder: string) {
-        this.placeholdername = placeholder
-        if (!this.placeholdername) throw new Error("Placeholder name is not set. Please call placeHolder first.")
+        this.placeholderName = placeholder
+        if (!this.placeholderName) throw new Error("Placeholder name is not set. Please call placeHolder first.")
     }
 
 
     // Replace [PLACE_HOLDER] in the URI with the actual target value.
-    replaceUriFrom(request_uri_from_globalConfig: string): string {
-        return request_uri_from_globalConfig.replaceAll(this.placeholdername, this.newValue)
+    applyToUri(request_uri_from_globalConfig: string): string {
+        return request_uri_from_globalConfig.replaceAll(this.placeholderName, this.newValue)
     }
 
 
     // Replace [PLACE_HOLDER] in the JSON data with the actual target value.
-    replaceJsonObjFrom(jsonData: Object): Object {
-        return JSON.parse(JSON.stringify(jsonData).replaceAll(this.placeholdername, this.newValue))
+    applyToJson(jsonData: Object): Object {
+        return JSON.parse(JSON.stringify(jsonData).replaceAll(this.placeholderName, this.newValue))
     }
 
 }

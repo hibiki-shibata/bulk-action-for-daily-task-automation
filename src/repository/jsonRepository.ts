@@ -6,7 +6,7 @@ import { IJsonRepository } from '../type/jsonRepositoryType.js'
 export class JsonRepository implements IJsonRepository {
     private static JsonDataALl: Object
 
-    public static getInstanceAndLoadJsonFrom(jsonPath: string): JsonRepository {
+    public static useJsonFileOf(jsonPath: string): JsonRepository {
         const JsonDataAllInString = fileReader(jsonPath)
         this.JsonDataALl = JSON.parse(JsonDataAllInString.trim())
 
@@ -18,7 +18,7 @@ export class JsonRepository implements IJsonRepository {
         if (!JsonRepository.JsonDataALl) throw new Error("JSON data is not loaded. Please call getInstanceAndLoadJsonFrom first.")
     }
 
-    public async getAllData(): Promise<Object> {
+    public getJsonAll(): Object {
         return JsonRepository.JsonDataALl
     }
 

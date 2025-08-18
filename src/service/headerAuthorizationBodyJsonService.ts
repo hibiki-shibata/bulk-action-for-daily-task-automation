@@ -37,22 +37,23 @@ import { IPlaceHolderReplacer } from '../type/placeHolderReplacerType.js'
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-export async function headerAuthorizationBodyJsonService(accessToken: string): Promise<void> {
+export function headerAuthorizationBodyJsonService(accessToken: string): void {
 
     // Load the CSV and JSON resource files, using specified path.
-    const resourceJsonObjRepository: IJsonRepository = JsonRepository.getInstanceAndLoadJsonFrom(globalConfig.json_file_path)
-    const resourceCsvRepository: ICsvRepository = CsvRepository.getInstanceAndloadCsvFrom(globalConfig.csv_file_path)
+    const resource_json_Repository: IJsonRepository = JsonRepository.useJsonFileOf(globalConfig.json_file_path)
+    const resource_csv_Repository: ICsvRepository = CsvRepository.useCsvFileOf(globalConfig.csv_file_path)
 
-    // Get Target value list from CSV.
-    const rowsList_of_target_csv_column: string[] = await resourceCsvRepository.getAllDataInColumnOf(globalConfig.csv_column_name)
+    // Get all rows of the base column specified in the globalConfig.
+    const all_rows_of_base_column: string[] = resource_csv_Repository.columnOf(globalConfig.base_csv_column_name).getLine()
 
-    // Get request body Object from JSON file.
-    const resourceOf_request_body_json: Object = await resourceJsonObjRepository.getAllData()
+    // Get all data from the JSON file.
+    const resource_request_body_json: Object = resource_json_Repository.getJsonAll()
 
-// ========================================================================================================================================================================
-//   Below codes are for customize the behavior of this Action.
-//   Feel free to contact HIBIKI for question! 
-// =============================================⚠️ WRITE YOUR CODE BELOW ⚠️===================================================================================================+
+    // ========================================================================================================================================================================
+    //   Below codes are for customize the behavior of this Action.
+    //   Feel free to contact HIBIKI for question! 
+    // =============================================⚠️ WRITE YOUR CODE BELOW ⚠️===================================================================================================+
+
 
 
 
@@ -63,16 +64,20 @@ export async function headerAuthorizationBodyJsonService(accessToken: string): P
 
 
 
-    // <<<<<<<<<<< START REQUEST ITERATION, by using rows in the config-specified CSV Column. <<<<<<<<<<<
-    rowsList_of_target_csv_column.forEach((row_of_target_csv_column: string) => {
-    // >>>>>>>>>>>> LOGIC FOR EACH ROW BELOW >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>        
 
+    // <<<<<<<<<<< START REQUEST ITERATION, by using rows in the config-specified CSV Column. <<<<<<<<<<<
+    for (let i = 0; i < all_rows_of_base_column.length; i++) {
+        // >>>>>>>>>>>> LOGIC FOR EACH ROW BELOW >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>        
+
+        const row_of_base_column: string = all_rows_of_base_column[i] || ""
 
         // Replace [PLACE-HOLDER] in the URI and JSON with the actual target value.
-        const placeHolderReplacer: IPlaceHolderReplacer = PlaceHolderReplacer.replaceOf("[PLACE-HOLDER]").replaceBy(row_of_target_csv_column)
-        const requestURI_without_placeholder: string = placeHolderReplacer.replaceUriFrom(globalConfig.request_uri)
-        const requestJsonBody_without_placeholder: Object = placeHolderReplacer.replaceJsonObjFrom(resourceOf_request_body_json)
+        const placeHolderReplacer: IPlaceHolderReplacer = PlaceHolderReplacer.for_placeHolder("[PLACE-HOLDER]").replaceWith(row_of_base_column)
+        const requestURI_without_placeholder: string = placeHolderReplacer.applyToUri(globalConfig.request_uri)
+        const requestJsonBody_without_placeholder: Object = placeHolderReplacer.applyToJson(resource_request_body_json)
 
+
+        
 
         // Send request
         // sendRequest({
@@ -83,16 +88,17 @@ export async function headerAuthorizationBodyJsonService(accessToken: string): P
         //     bodyJson: requestJsonBody_without_placeholder
         // })
 
-        console.log(`Sending request to: ${requestURI_without_placeholder}`)
-        console.log(`With body: ${JSON.stringify(requestJsonBody_without_placeholder, null, 2)}`)
+        console.log(`Sending request for row: ${row_of_base_column}`)
+        console.log(`Request URI: ${requestURI_without_placeholder}`)
+        console.log(`Request Body: ${JSON.stringify(requestJsonBody_without_placeholder, null, 2)}`)
 
 
-// ============================================⚠️ WRITE YOUR CODE ABOVE ⚠️=====================================================================================================
-//                                             Above codes are example.
-// ========================================================================================================================================================================
-            // .then((isSuccess) => {isSuccess ? console.log(`✅ Successfully: [${row_of_target_csv_column}]`) : console.warn(`❌ Failed: [${row_of_target_csv_column}]`);})
-    })
 
+        // ============================================⚠️ WRITE YOUR CODE ABOVE ⚠️=====================================================================================================
+        //                                             Above codes are example.
+        // ========================================================================================================================================================================
+        // .then((isSuccess) => {isSuccess ? console.log(`✅ Successfully: [${row_of_target_csv_column}]`) : console.warn(`❌ Failed: [${row_of_target_csv_column}]`);})
+    }
 }
 
 
