@@ -1,4 +1,4 @@
 export interface IPlaceHolderReplacer {
-  replaceUriFrom(uri: string): string
-  replaceJsonObjFrom(jsonData: Object): Object
+  applyToUri(uri: string): string
+  applyToJson(jsonData: Object): Object
 }

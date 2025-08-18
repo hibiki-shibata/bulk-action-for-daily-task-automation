@@ -1,3 +1,3 @@
-export interface IBulkActionTypeController {
-    header_Authorization_body_Json(): Promise<void>
+export interface IBulkActionController {
+    bulkReqOf_header_Authorization_body_Json(): Promise<void>
 }
