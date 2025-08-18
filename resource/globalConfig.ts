@@ -19,14 +19,14 @@ import { globalConfigType } from "../src/type/globalConfigType.js"; export const
 
   // B) Request URI.
   //        Optionally, use [PLACE-HOLDER] as a placeholder for replacing it with data in the CSV column below.
-  request_uri: "https://example-restautnt-management/open/[PLACE-HOLDER]/demo",
+  request_uri: "https://example-restautnt-management/open/[Customer ID]/demo",
 
 
 
 
   // C) Primary Column name in CSV file.
   //        Data in this column will replace [PLACE-HOLDER].
-  base_csv_column_name: "Venue Address",
+  base_csv_column_name: "Customer ID",
 
 
 
