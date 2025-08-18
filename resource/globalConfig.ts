@@ -26,6 +26,7 @@ import { globalConfigType } from "../src/type/globalConfigType.js"; export const
 
   // C) Primary Column name in CSV file.
   //        Data in this column will replace [PLACE-HOLDER].
+
   base_csv_column_name: "Customer ID",
 
 
@@ -47,7 +48,7 @@ import { globalConfigType } from "../src/type/globalConfigType.js"; export const
 
   // E) OPTIONAL‼️ : Security Header Name.
   //                     If your API requires a security header name wasn't default - "Authorization".
-  seuciry_header_name: "Authorization",
+  security_header_name: "Authorization",
 
 
 

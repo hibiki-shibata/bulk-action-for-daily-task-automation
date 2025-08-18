@@ -1,4 +1,4 @@
-// ================= Welcome to customization! Scroll Down for customization. NO EDIT BELOW⚠️  ==============================================================================================================
+// ================= 　Welcome　to customization!　⚠️ Scroll Down for customization　↓ ==============================================================================================================
 import { PlaceHolderReplacer } from '../util/placeHolderReplacer.js'
 import { globalConfig } from '../../resource/globalConfig.js'
 import { sendRequest } from '../api/request.js'
@@ -25,10 +25,12 @@ export class AuthorizationHeaderAndBodyJsonService implements bulkActionServiceT
         return new AuthorizationHeaderAndBodyJsonService()
     }
 
-
     public executeBulkAction(): void {
         //Prep for Iteration: Get all rows of the base column specified in the globalConfig. 
         const rowsAll_in_base_column = this.resource_csv_Repository.columnOf(globalConfig.base_csv_column_name).getLine()
+
+
+
 
 // ~~~~~~~~~~~~~~~~~~ Useful Methods/Variables For Customization. Scroll Down for customization ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -67,7 +69,7 @@ export class AuthorizationHeaderAndBodyJsonService implements bulkActionServiceT
             //  e.g. base_column_name = "Venue Address" request_uri = "https://example.com/[Venue Address]/example" --replace--> https://example.com/Tokyo/example.
             const row_of_base_column: string = rowsAll_in_base_column[i] || ""
             if (!row_of_base_column) throw Error(`❌ Line of [${i}] not found in the CSV file.`)
-            const placeHolderReplacer: IPlaceHolderReplacer = PlaceHolderReplacer.for_placeHolder(globalConfig.base_csv_column_name).replaceWith(row_of_base_column)
+            const placeHolderReplacer: IPlaceHolderReplacer = PlaceHolderReplacer.for_placeHolder(`[${globalConfig.base_csv_column_name}]`).replaceWith(row_of_base_column)
             const requestURI_without_placeholder: string = placeHolderReplacer.applyToUri(globalConfig.request_uri)
             const requestJsonBody_without_placeholder: Object = placeHolderReplacer.applyToJson(this.resource_request_body_json)
 
@@ -78,7 +80,7 @@ export class AuthorizationHeaderAndBodyJsonService implements bulkActionServiceT
             sendRequest({
                 URI: requestURI_without_placeholder,
                 methodType: globalConfig.request_method,
-                securityHeaderName: globalConfig.seuciry_header_name,
+                securityHeaderName: globalConfig.security_header_name,
                 accessToken: AuthorizationHeaderAndBodyJsonService.accessToken,
                 bodyJson: requestJsonBody_without_placeholder
             })
@@ -89,9 +91,9 @@ export class AuthorizationHeaderAndBodyJsonService implements bulkActionServiceT
 
 
 
-                // ============================================⚠️ WRITE YOUR CODE ABOVE ⚠️=====================================================================================================
-                //                                           Above codes are Default logic.
-                // ===========================================================================================================================================================================
+// ============================================⚠️ WRITE YOUR CODE ABOVE ⚠️=====================================================================================================
+//                                           Above codes are Default logic.
+// ===========================================================================================================================================================================
                 .then((isSuccess) => { isSuccess ? console.log(`✅ Successfully: [${row_of_base_column}]`) : console.warn(`❌ Failed: [${row_of_base_column}]`); })
         }
 
