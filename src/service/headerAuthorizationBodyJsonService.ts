@@ -70,6 +70,9 @@ export function headerAuthorizationBodyJsonService(accessToken: string): void {
         // >>>>>>>>>>>> LOGIC FOR EACH ROW BELOW >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>        
 
         const row_of_base_column: string = all_rows_of_base_column[i] || ""
+        if (!row_of_base_column) throw Error(`❌ Row [${i}] not found in the CSV file.`)
+
+
 
         // Replace [PLACE-HOLDER] in the URI and JSON with the actual target value.
         const placeHolderReplacer: IPlaceHolderReplacer = PlaceHolderReplacer.for_placeHolder("[PLACE-HOLDER]").replaceWith(row_of_base_column)
@@ -77,7 +80,7 @@ export function headerAuthorizationBodyJsonService(accessToken: string): void {
         const requestJsonBody_without_placeholder: Object = placeHolderReplacer.applyToJson(resource_request_body_json)
 
 
-        
+
 
         // Send request
         // sendRequest({

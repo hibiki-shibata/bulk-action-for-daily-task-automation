@@ -9,11 +9,13 @@ export class CsvRepository implements ICsvRepository {
 
     private constructor() {
         if (!CsvRepository.csvAllTargetDataMetrix || !CsvRepository.columnNames) {
-            throw new Error("CSV data is not loaded. Please call useCsvFileOf first.")
+            throw new Error("❌CSV data is not loaded. Please call useCsvFileOf first.")
         }
     }
 
     public static useCsvFileOf(csvPath: string): CsvRepository {
+        if (!csvPath) throw new Error("❌CSV file path is not provided.")
+
         const csvRawData: string = fileReader(csvPath).trim()
 
         // Convert the CSV raw data into a 2D array (matrix)
@@ -25,13 +27,15 @@ export class CsvRepository implements ICsvRepository {
         // Assign content Metrix after removing the Column name row
         this.csvAllTargetDataMetrix = csvRawDataMetrix
 
-        if (this.csvAllTargetDataMetrix.length === 0) throw Error("The CSV file is empty or does not contain valid data.")
-        if (this.columnNames.length === 0) throw Error("No column names found in the CSV file.")
+        if (this.csvAllTargetDataMetrix.length === 0) throw Error("❌The CSV file is empty or does not contain valid data.")
+        if (this.columnNames.length === 0) throw Error("❌No column names found in the CSV file.")
         return new CsvRepository()
     }
 
 
     columnOf(columnName: string): CsvTargetSelector {
+        if (!columnName) throw Error("❌Column name is not provided.")
+
         // Get the Index of the target column name.
         const indexOftargetColumn: number = CsvRepository.columnNames.indexOf(columnName)
 
@@ -45,6 +49,8 @@ export class CsvRepository implements ICsvRepository {
     }
 
     rowOf(LineIndex: number): CsvTargetSelector {
+        if (LineIndex < 0) throw Error("❌Line index cannot be negative.")
+
         // Get all data in the specified row
         const allColumnsInTargetRow: string[] = CsvRepository.csvAllTargetDataMetrix[LineIndex] || []
 
@@ -60,7 +66,7 @@ export class CsvRepository implements ICsvRepository {
 
 
 
-class CsvTargetSelector implements ICsvRepository, ICsvTargetSelector {
+class CsvTargetSelector implements CsvRepository, ICsvTargetSelector {
     private columnNames: string[]
     private targetRowsOrColumns: string[]
     private expect_ColumnOf_asNext: boolean
@@ -75,7 +81,8 @@ class CsvTargetSelector implements ICsvRepository, ICsvTargetSelector {
 
     // Need [Column Names], [target rows]
     columnOf(targetColumnName: string): this {
-        if (!this.expect_ColumnOf_asNext) throw Error("You've already selected a column. Please use rowOf() for selecting a row.")
+        if (!this.expect_ColumnOf_asNext) throw Error("❌You've already selected a column. Please use rowOf() for selecting a row.")
+        if (!targetColumnName) throw Error("❌Column name is not provided.")
 
         // Get the Index of the target column name.
         const indexOftargetColumn: number = this.columnNames.indexOf(targetColumnName)
@@ -92,6 +99,7 @@ class CsvTargetSelector implements ICsvRepository, ICsvTargetSelector {
     // Need [target target colums]
     rowOf(indexOfTargetLine: number): this {
         if (this.expect_ColumnOf_asNext) throw Error("You've already selected a row. Please use columnOf() for selecting a column.")
+        if (indexOfTargetLine < 0) throw Error("❌Row index cannot be negative.")
 
         const targetCellData = this.targetRowsOrColumns[indexOfTargetLine]?.trim() || ""
 

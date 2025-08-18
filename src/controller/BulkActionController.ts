@@ -9,6 +9,7 @@ export class BulkActionController implements IBulkActionController {
     // Constructor to initialize the access token.
     public static async getInstanceAndSetAccessToken(accessToken: string): Promise<BulkActionController> {
         this.accessToken = accessToken
+        if (!this.accessToken) throw new Error("❌Access token is not provided. Please call getInstanceAndSetAccessToken first.")
         return new BulkActionController()
     }
 
