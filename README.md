@@ -2,7 +2,7 @@
 1. Prepare resource files. (Check out ["What you manually prepare"](https://github.com/hibiki-shibata/bulk-action-for-daily-task-automation/blob/main/README.md#what-you-manually-prepare))
 2. Run this Project in CLI.
 3. You will be asked for Authorization Token.
-4. Bulk task automatically starts.
+4. Bulk request automatically starts.
 5. After all request sent without error, you will see message "HEY, DONE❤️".
 
 
