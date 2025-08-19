@@ -1,4 +1,4 @@
-## Expected behavior overview ~ step by step ~ 📝
+## ~ step by step ~ Expected behavior📝
 1. Prepare resource files. (Check out ["What you manually prepare"](https://github.com/hibiki-shibata/bulk-action-for-daily-task-automation/blob/main/README.md#what-you-manually-prepare))
 2. Run this Project in CLI.
 3. You will be asked for Authorization Token.
@@ -11,19 +11,23 @@
 
 
 
-## What you manually prepare📝:
-1.Edit [`./resource/globalConfig.ts`](https://github.com/hibiki-shibata/bulk-action-for-daily-task-automation/blob/main/resource/globalConfig.ts)...Configure Request method, URI, CSV column name🔧.
+## What you manually prepare -> Only edit ./Resource folder 📝:
+
+1. Edit [`./resource/globalConfig.ts`](https://github.com/hibiki-shibata/bulk-action-for-daily-task-automation/blob/main/resource/globalConfig.ts)...Configure Request method, URI, CSV column name🔧.
    - Inspect request format(Request URL, Request Method, Request Body) in network log on your Browser, and copy it.
 
-2. Edit/Create [JSON file](https://github.com/hibiki-shibata/bulk-action-for-daily-task-automation/blob/main/resource/request-body.json)....Define the structure of request body📝.
+2. Edit [JSON file](https://github.com/hibiki-shibata/bulk-action-for-daily-task-automation/blob/main/resource/request-body.json)....Define the structure of request body📝.
    - Copy the inspected request Body in the step1.
-   - Use [PLACE-HOLDER]
+   - Use [<Your CSV column name>]
    
-3. Edit/Create [CSV file](https://github.com/hibiki-shibata/bulk-action-for-daily-task-automation/blob/main/resource/target-values.csv)....Define the target values of request📝.
+3. Edit [CSV file](https://github.com/hibiki-shibata/bulk-action-for-daily-task-automation/blob/main/resource/target-values.csv)....Define the target values of request📝.
+
+##
 
 #### Optional‼️
 4. [headerAuthorizationBodyJsonService.ts](https://github.com/hibiki-shibata/bulk-action-for-daily-task-automation/blob/main/src/service/headerAuthorizationBodyJsonService.ts).....Let's easily chage pattern of Bulk Actions!
-- When your requirement wasn't satisfied by default behavior, custmize the behavior here! It will be simple!
+- When your requirement wasn't satisfied by the default behavior, custmize more details here!
+- It will be simple!
 
 
 
