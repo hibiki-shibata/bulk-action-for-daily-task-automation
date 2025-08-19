@@ -14,7 +14,7 @@ export class AuthorizationHeaderAndBodyJsonService implements IBulkActionService
     private resource_csv_Repository: ICsvRepository
     private resource_request_body_json: Object
 
-    private length_of_csv_row: number
+    private length_of_csv_rows: number
     private list_of_optional_csv_column_names: string[]
 
     public static setAccessToken(accessToken: string): AuthorizationHeaderAndBodyJsonService {
@@ -29,7 +29,7 @@ export class AuthorizationHeaderAndBodyJsonService implements IBulkActionService
         this.resource_request_body_json = JsonRepository.useJsonFileOf(globalConfig.json_file_path).getJsonAll()
 
         //Prep for Iteration: Get all rows of the Base column specified in the globalConfig. 
-        this.length_of_csv_row = this.resource_csv_Repository.columnOf(globalConfig.base_csv_column_name).getLine().length
+        this.length_of_csv_rows = this.resource_csv_Repository.columnOf(globalConfig.base_csv_column_name).getLine().length
         // Prep for Iteration: Get all names of Optional columns specified in the globalConfig.
         this.list_of_optional_csv_column_names = get_list_of_optional_csv_column_names()
     }
@@ -68,11 +68,14 @@ export class AuthorizationHeaderAndBodyJsonService implements IBulkActionService
 
 
         // <<<<<<<<<<< START REQUEST ITERATION, based on base CSV Column. <<<<<<<<<<<
-        for (let i = 1; i < this.length_of_csv_row; i++) {
+        for (let i = 1; i < this.length_of_csv_rows; i++) {
             // >>>>>>>>>>>> LOGIC FOR EACH ROW BELOW >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>        
 
 
-            // Replace the name of base column as placeholders in the request URI and JSON body with the value of the base column for the current row.
+
+
+
+            // Replace the name of BASE column as placeholders in the request URI and JSON body with the value of the base column for the current row.
             //  e.g. base_column_name = "Venue ID" request_uri = "https://example.com/[Venue ID]/example" --replace--> https://example.com/12345/example.
             const row_of_base_column = this.resource_csv_Repository.columnOf(globalConfig.base_csv_column_name).rowOf(i).getCellValue()
             if (!row_of_base_column) throw Error(`❌ Line of [${i + 1}] doesnt exist or is empty. Please check your CSV file.`)
@@ -82,7 +85,9 @@ export class AuthorizationHeaderAndBodyJsonService implements IBulkActionService
 
 
 
-            // Replace the name of optional columns as placeholders in the request URI and JSON body with the value of the optional column for the current row.
+
+
+            // Replace the name of OPTIONAL columns as placeholders in the request URI and JSON body with the value of the optional column for the current row.
             //  e.g. optional_column_name = "Venue Address" request_uri = "https://example.com/[Venue Address]/example" --replace--> https://example.com/Tokyo/example.
             this.list_of_optional_csv_column_names.forEach(optional_csv_column_name => {
                 const row_of_optional_column: string = this.resource_csv_Repository.columnOf(optional_csv_column_name).rowOf(i).getCellValue()
