@@ -22,19 +22,20 @@
    
 3. Edit [CSV file](https://github.com/hibiki-shibata/bulk-action-for-daily-task-automation/blob/main/resource/target-values.csv)....Define the target values of request📝.
 
-##
+<p align="center" border="none">
+  <img alt="Bulk tool, the relation of CSV, JSON and config" src="./doc/bulkToolDesc.jpg" align="center">
+</p>
+
 
 #### Optional‼️
 4. [HeaderAuthorizationBodyJsonService.ts](https://github.com/hibiki-shibata/bulk-action-for-daily-task-automation/blob/main/src/service/headerAuthorizationBodyJsonService.ts).....Let's easily chage pattern of Bulk Actions!
 - When your requirement wasn't satisfied by the default behavior, custmize more details here!
 - It will be simple!
 
-
-
 ##
 
 
-##  ※ How to run this Project📚:
+##   How to run this Project📚:
 #### Prerequisite:
 1. Install Node.js (Download from [Node.js official](https://nodejs.org/en/download))
 2. Install dependencies by command.
@@ -46,12 +47,3 @@
     ```bash
     npm start
     ```
-
-
-
-
-
-
-<p align="center" border="none">
-  <img alt="Bulk tool, the relation of CSV, JSON and config" src="./doc/bulkToolDesc.jpg" align="center">
-</p>
