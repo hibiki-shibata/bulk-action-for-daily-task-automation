@@ -1,5 +1,5 @@
 import { fileReader } from '../util/fileReader.js'
-import { ICsvTargetSelector, ICsvRepository } from '../type/csvRepositoryType.js'
+import { ICsvTargetSelector, ICsvRepository } from '../type/ICsvRepository.js'
 
 
 

@@ -1,10 +1,10 @@
 {
     "id": "[Customer ID]",
     "enable": true,
-    "home_address": "Paris, France",
+    "home_address": "[Venue Address]",
     "friend_customers": {
-        "customerID": ["[Customer ID]", "12345", "67890" ]
+        "customerID": ["[Customer ID]", "[Contact]", "67890" ]
     },
-    "email": "example@gmail.com",
-    "externalID": "[Customer ID]"
+    "email": "[Contact]",
+    "phoneNumber": "+021111111111"
 }

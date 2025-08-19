@@ -1,4 +1,4 @@
-import { IPlaceHolderReplacer } from "../type/placeHolderReplacerType.js";
+import { IPlaceHolderReplacer } from "../type/IPlaceHolderReplacer.js";
 
 
 
@@ -29,14 +29,14 @@ export class PlaceHolderReplacer implements IPlaceHolderReplacer {
 
     // Replace [PLACE_HOLDER] in the URI with the actual target value.
     applyToUri(request_uri_from_globalConfig: string): string {
-        if (!request_uri_from_globalConfig) throw new Error("❌Request URI is not provided.")
+        if (!this.newValue) throw new Error("❌Provide the replacing value first. Please call replaceWith first.")
         return request_uri_from_globalConfig.replaceAll(this.placeholderName, this.newValue)
     }
 
 
     // Replace [PLACE_HOLDER] in the JSON data with the actual target value.
     applyToJson(jsonData: Object): Object {
-        if (!jsonData) throw new Error("❌JSON data is not provided.")
+        if (!this.newValue) throw new Error("❌Provide the replacing value first. Please call replaceWith first.")
         return JSON.parse(JSON.stringify(jsonData).replaceAll(this.placeholderName, this.newValue))
     }
 

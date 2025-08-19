@@ -1,9 +1,9 @@
-export interface globalConfigType {
+export type globalConfigType = {
     request_method: string,
     request_uri: string,
     security_header_name: string,
     base_csv_column_name: string,
-    
+
     optional_csv_column_name_1?: string,
     optional_csv_column_name_2?: string,
     optional_csv_column_name_3?: string,
@@ -18,3 +18,4 @@ export interface globalConfigType {
     csv_file_path: string,
     json_file_path: string,
 }
+
