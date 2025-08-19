@@ -36,8 +36,8 @@ import { globalConfigType } from "../src/type/globalConfigType.js"; export const
 
 
   // E) Paths to the resource files.
-  csv_file_path: "./resource/target-values.csv",
-  json_file_path: "./resource/request-body.json", // Define your request body
+  csv_file_path: "./resource/target-values.csv", // Define your custom values.
+  json_file_path: "./resource/request-body-config.json", // Define your request body.
 
 
 
