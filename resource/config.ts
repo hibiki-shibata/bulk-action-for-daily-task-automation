@@ -1,4 +1,4 @@
-import { configType } from "../src/type/configType.js"; export const config: configType = {
+import { configType } from "../src/type/config.Type.js"; export const config: configType = {
 // =====================================================================================================================================
 
 //                       Feel free to contact HIBIKI for question !
@@ -35,8 +35,8 @@ import { configType } from "../src/type/configType.js"; export const config: con
 
 
   // E) Paths to the resource files.
-  csv_file_path: "./resource/target-values.csv", // Define your custom values.
-  json_file_path: "./resource/request-body-config.json", // Define your request body.
+  csv_file_path: "./resource/custom-values.csv", // Define your custom values.
+  json_file_path: "./resource/requestBody-config.json", // Define your request body.
 
 
 

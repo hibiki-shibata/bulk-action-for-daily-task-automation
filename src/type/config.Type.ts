@@ -1,3 +1,5 @@
+const i = 1
+
 export type configType = {
     request_method: string,
     request_uri: string,

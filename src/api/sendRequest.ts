@@ -1,7 +1,7 @@
-import { sendRequestMethodArgType } from '../type/sendRequestMethodArgType.js'
+import { sendRequestArgType } from '../type/sendRequest.ArgType.js'
 
 
-export async function sendRequest({ URI, methodType, securityHeaderName, accessToken, bodyJson }: sendRequestMethodArgType): Promise<boolean> {
+export async function sendRequest({ URI, methodType, securityHeaderName, accessToken, bodyJson }: sendRequestArgType): Promise<boolean> {
     const response: Response = await fetch(URI, {
         method: `${methodType}`,
         headers: {
