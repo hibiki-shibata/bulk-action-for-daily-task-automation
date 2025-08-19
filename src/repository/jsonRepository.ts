@@ -1,5 +1,5 @@
 import { fileReader } from '../util/fileReader.js'
-import { IJsonRepository } from '../type/jsonRepositoryType.js'
+import { IJsonRepository } from '../type/IJsonRepository.js'
 
 
 

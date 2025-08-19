@@ -1,4 +1,4 @@
-export interface sendRequestMethodArgType {
+export type sendRequestMethodArgType = {
     URI: string,
     methodType: string,
     securityHeaderName: string,

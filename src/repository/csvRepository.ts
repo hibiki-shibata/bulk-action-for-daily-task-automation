@@ -1,5 +1,5 @@
 import { fileReader } from '../util/fileReader.js'
-import { ICsvTargetSelector, ICsvRepository } from '../type/csvRepositoryType.js'
+import { ICsvTargetSelector, ICsvRepository } from '../type/ICsvRepository.js'
 
 
 
@@ -44,7 +44,7 @@ export class CsvRepository implements ICsvRepository {
 
         const expect_ColumnOf_asNext: boolean = false
 
-        if (indexOftargetColumn < 0 || allRowsInTargetColumn.length <= 0) throw Error(`Column "${columnName}" not found in the CSV file.`)
+        if (indexOftargetColumn < 0 || allRowsInTargetColumn.length <= 0) throw Error(`❌Column "${columnName}" not found in the CSV file.`)
         return new CsvTargetSelector(allRowsInTargetColumn, expect_ColumnOf_asNext, CsvRepository.columnNames)
     }
 
@@ -57,7 +57,7 @@ export class CsvRepository implements ICsvRepository {
         // Prevent the next call to columnOf() method
         const expect_ColumnOf_asNext: boolean = true
 
-        if (LineIndex < 0 || allColumnsInTargetRow.length <= 0) throw Error(`Row "${LineIndex}" not found in the CSV file.`)
+        if (LineIndex < 0 || allColumnsInTargetRow.length <= 0) throw Error(`❌Row "${LineIndex}" not found in the CSV file.`)
         return new CsvTargetSelector(allColumnsInTargetRow, expect_ColumnOf_asNext, CsvRepository.columnNames)
     }
 
@@ -91,31 +91,32 @@ class CsvTargetSelector implements CsvRepository, ICsvTargetSelector {
         const targetCellData: string = this.targetRowsOrColumns[indexOftargetColumn]?.trim() || ""
 
         // Check if the selected cell data is empty
-        if (!targetCellData || indexOftargetColumn < 0) throw Error(`Column "${targetColumnName}" not found in the CSV file.`)
+        if (!targetCellData || indexOftargetColumn < 0) throw Error(`❌Column "${targetColumnName}" not found in the CSV file.`)
         CsvTargetSelector.targetCellValue = targetCellData
         return this
     }
 
     // Need [target target colums]
     rowOf(indexOfTargetLine: number): this {
-        if (this.expect_ColumnOf_asNext) throw Error("You've already selected a row. Please use columnOf() for selecting a column.")
+        if (this.expect_ColumnOf_asNext) throw Error("❌You've already selected a row. Please use columnOf() for selecting a column.")
         if (indexOfTargetLine < 0) throw Error("❌Row index cannot be negative.")
 
         const targetCellData = this.targetRowsOrColumns[indexOfTargetLine]?.trim() || ""
 
         // Check if the selected cell data is empty
-        if (!targetCellData || indexOfTargetLine < 0) throw Error(`Row "${indexOfTargetLine}" not found in the CSV file.`)
+        if (!targetCellData || indexOfTargetLine < 0) throw Error(`❌Row "${indexOfTargetLine}" not found in the CSV file.`)
         CsvTargetSelector.targetCellValue = targetCellData
         return this
     }
 
     getCellValue(): string {
-        if (!CsvTargetSelector.targetCellValue) throw Error("No value has been selected. Please use columnOf() or rowOf() to select a value first.")
+        if (!CsvTargetSelector.targetCellValue) throw Error("❌No value has been selected. Please use columnOf() or rowOf() to select a value first.")
         // Return the value of the selected cell
         return CsvTargetSelector.targetCellValue
     }
 
     getLine(): string[] {
+        if (CsvTargetSelector.targetCellValue) throw Error("❌You have already selected a cell value. Please use columnOf() or rowOf() to select a value first.")
         // Return the entire row or column as an array
         return this.targetRowsOrColumns
     }
