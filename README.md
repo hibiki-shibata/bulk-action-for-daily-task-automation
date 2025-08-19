@@ -52,4 +52,6 @@
 
 
 
-
+<p align="center" border="none">
+  <img alt="Bulk tool, the relation of CSV, JSON and config" src="./doc/bulkToolDesc.jpg" align="center">
+</p>
