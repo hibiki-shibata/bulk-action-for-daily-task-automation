@@ -1,4 +1,4 @@
-export type globalConfigType = {
+export type configType = {
     request_method: string,
     request_uri: string,
     security_header_name: string,

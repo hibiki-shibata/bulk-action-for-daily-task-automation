@@ -1,5 +1,5 @@
 // ================= 　Welcome　to customization!　⚠️ Scroll Down for customization　↓ ==============================================================================================================
-import { globalConfig } from '../../resource/globalConfig.js'
+import { config } from '../../resource/config.js'
 import { sendRequest } from '../api/sendRequest.js'
 import { ICsvRepository } from '../type/ICsvRepository.js'
 import { IPlaceHolderReplacer } from '../type/IPlaceHolderReplacer.js'
@@ -25,17 +25,17 @@ export class AuthorizationHeaderAndBodyJsonService implements IBulkActionService
 
     private constructor() {
         // Load the CSV and JSON resource files, using specified path.
-        this.resource_csv_Repository = CsvRepository.useCsvFileOf(globalConfig.csv_file_path)
-        this.resource_request_body_json = JsonRepository.useJsonFileOf(globalConfig.json_file_path).getJsonAll()
+        this.resource_csv_Repository = CsvRepository.useCsvFileOf(config.csv_file_path)
+        this.resource_request_body_json = JsonRepository.useJsonFileOf(config.json_file_path).getJsonAll()
 
         //Prep for Iteration: Get all rows of the Base column specified in the globalConfig. 
-        this.length_of_csv_rows = this.resource_csv_Repository.columnOf(globalConfig.base_csv_column_name).getLine().length
+        this.length_of_csv_rows = this.resource_csv_Repository.columnOf(config.base_csv_column_name).getLine().length
         // Prep for Iteration: Get all names of Optional columns specified in the globalConfig.
         this.list_of_optional_csv_column_names = get_list_of_optional_csv_column_names()
     }
 
     public executeBulkAction(): void {
-        let request_uri: string = globalConfig.request_uri
+        let request_uri: string = config.request_uri
         let request_json_body: Object = this.resource_request_body_json
 // ~~~~~~~~~~~~~~~~~~ Useful Methods/Variables For Customization. ⚠️ Scroll Down for customization ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -77,10 +77,10 @@ export class AuthorizationHeaderAndBodyJsonService implements IBulkActionService
 
             // Replace the name of BASE column as placeholders in the request URI and JSON body with the value of the base column for the current row.
             //  e.g. base_column_name = "Venue ID" request_uri = "https://example.com/[Venue ID]/example" --replace--> https://example.com/12345/example.
-            const row_of_base_column = this.resource_csv_Repository.columnOf(globalConfig.base_csv_column_name).rowOf(i).getCellValue()
+            const row_of_base_column = this.resource_csv_Repository.columnOf(config.base_csv_column_name).rowOf(i).getCellValue()
             if (!row_of_base_column) throw Error(`❌ Line of [${i + 1}] doesnt exist or is empty. Please check your CSV file.`)
-            const placeHolderReplacer: IPlaceHolderReplacer = PlaceHolderReplacer.for_placeHolder(`[${globalConfig.base_csv_column_name}]`).replaceWith(row_of_base_column)
-            request_uri = placeHolderReplacer.applyToUri(globalConfig.request_uri)
+            const placeHolderReplacer: IPlaceHolderReplacer = PlaceHolderReplacer.for_placeHolder(`[${config.base_csv_column_name}]`).replaceWith(row_of_base_column)
+            request_uri = placeHolderReplacer.applyToUri(config.request_uri)
             request_json_body = placeHolderReplacer.applyToJson(this.resource_request_body_json)
 
 
@@ -110,8 +110,8 @@ export class AuthorizationHeaderAndBodyJsonService implements IBulkActionService
             // Send request
             sendRequest({
                 URI: request_uri,
-                methodType: globalConfig.request_method,
-                securityHeaderName: globalConfig.security_header_name,
+                methodType: config.request_method,
+                securityHeaderName: config.security_header_name,
                 accessToken: AuthorizationHeaderAndBodyJsonService.accessToken,
                 bodyJson: request_json_body
             })

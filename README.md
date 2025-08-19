@@ -13,7 +13,7 @@
 
 ## What you manually prepare -> Only edit ./Resource folder 📝:
 
-1. Edit [`./resource/globalConfig.ts`](https://github.com/hibiki-shibata/bulk-action-for-daily-task-automation/blob/main/resource/globalConfig.ts)...Configure Request method, URI, CSV column name🔧.
+1. Edit [`./resource/config.ts`](https://github.com/hibiki-shibata/bulk-action-for-daily-task-automation/blob/main/resource/config.ts)...Configure Request method, URI, CSV column name🔧.
    - Inspect request format(Request URL, Request Method, Request Body) in network log on your Browser, and copy it.
 
 2. Edit [JSON file](https://github.com/hibiki-shibata/bulk-action-for-daily-task-automation/blob/main/resource/request-body.json)....Define the structure of request body📝.
@@ -25,7 +25,7 @@
 ##
 
 #### Optional‼️
-4. [headerAuthorizationBodyJsonService.ts](https://github.com/hibiki-shibata/bulk-action-for-daily-task-automation/blob/main/src/service/headerAuthorizationBodyJsonService.ts).....Let's easily chage pattern of Bulk Actions!
+4. [HeaderAuthorizationBodyJsonService.ts](https://github.com/hibiki-shibata/bulk-action-for-daily-task-automation/blob/main/src/service/headerAuthorizationBodyJsonService.ts).....Let's easily chage pattern of Bulk Actions!
 - When your requirement wasn't satisfied by the default behavior, custmize more details here!
 - It will be simple!
 

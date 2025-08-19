@@ -1,9 +1,9 @@
-import { globalConfigType } from "../src/type/globalConfigType.js"; export const globalConfig: globalConfigType = {
+import { configType } from "../src/type/configType.js"; export const config: configType = {
 // =====================================================================================================================================
 
 //                       Feel free to contact HIBIKI for question !
 
-// ============================📝 WRITE YOUR CODE BELOW 📝==================================================================================
+// ============================📝 FILL YOUR CONFIGURATION BELOW 📝==================================================================================
 
 
 
@@ -31,7 +31,6 @@ import { globalConfigType } from "../src/type/globalConfigType.js"; export const
   //                      You can specify up to 10 additional columns.
   optional_csv_column_name_1: "Customer ID",
   optional_csv_column_name_2: "Venue Address",
-  optional_csv_column_name_3: "Contact",
 
 
 
@@ -50,7 +49,7 @@ import { globalConfigType } from "../src/type/globalConfigType.js"; export const
 
 
 
-// ============================📝 WRITE YOUR CODE ABOVE 📝==================================================================================
+// ============================📝 FILL YOUR CONFIGURATION ABOVE 📝==================================================================================
 
 //                      Feel free to contact HIBIKI for question !
 
