@@ -31,7 +31,7 @@ export class AuthorizationHeaderAndNobodyService implements IBulkActionService {
         this.list_of_optional_csv_column_names = get_list_of_optional_csv_column_names()
     }
 
-    public executeBulkAction(): void {
+    public async executeBulkAction(): Promise<void> {
         let request_uri: string = config.request_uri
 // ~~~~~~~~~~~~~~~~~~ Useful Methods/Variables For Customization. ⚠️ Scroll Down for customization ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -64,7 +64,7 @@ export class AuthorizationHeaderAndNobodyService implements IBulkActionService {
 
 
         // <<<<<<<<<<< START REQUEST ITERATION, based on base CSV Column. <<<<<<<<<<<
-        for (let i = 1; i < this.length_of_csv_rows; i++) {
+        for (let i = 0; i < this.length_of_csv_rows; i++) {
             // >>>>>>>>>>>> LOGIC FOR EACH ROW BELOW >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>        
 
 
@@ -95,14 +95,13 @@ export class AuthorizationHeaderAndNobodyService implements IBulkActionService {
 
 
 
-
             console.log(`Sending request for row: ${row_of_base_column}`)
             console.log(`Request URI: ${request_uri}`)
 
 
 
             // Send request
-            sendNoBodyRequest({
+            const isSuccess: boolean = await sendNoBodyRequest({
                 URI: request_uri,
                 methodType: config.request_method,
                 securityHeaderName: config.security_header_name,
@@ -112,12 +111,14 @@ export class AuthorizationHeaderAndNobodyService implements IBulkActionService {
 
 
 
-                // ============================================⚠️ WRITE YOUR CODE ABOVE ⚠️=====================================================================================================
-                //                                           Above codes are Default logic.
-                // ===========================================================================================================================================================================
-                .then((isSuccess) => { isSuccess ? console.log(`✅ Successfully: [${row_of_base_column}]`) : console.warn(`❌ Failed: [${row_of_base_column}]`); })
+
+
+
+
+// ============================================⚠️ WRITE YOUR CODE ABOVE ⚠️=====================================================================================================
+//                                           Above codes are Default logic.
+// ===========================================================================================================================================================================
+            if (isSuccess) { console.log(`✅ Successfully: [${row_of_base_column}]`) } else { console.warn(`❌ Failed: [${row_of_base_column}]`) }
         }
-
-
     }
 }

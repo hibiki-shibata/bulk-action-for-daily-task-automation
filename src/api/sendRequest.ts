@@ -38,7 +38,7 @@ export async function sendNoBodyRequest({ URI, methodType, securityHeaderName, a
         headers: {
             [securityHeaderName]: accessToken
         },
-        signal: AbortSignal.timeout(5000)
+        // signal: AbortSignal.timeout(5000)
     }).catch(error => {
         return new Response(null, { status: 500, statusText: error.message });
     })

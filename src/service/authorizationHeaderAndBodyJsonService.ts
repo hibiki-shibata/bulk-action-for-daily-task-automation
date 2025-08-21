@@ -36,33 +36,33 @@ export class AuthorizationHeaderAndBodyJsonService implements IBulkActionService
         this.list_of_optional_csv_column_names = get_list_of_optional_csv_column_names()
     }
 
-    public executeBulkAction(): void {
+    public async executeBulkAction(): Promise<void> {
         let request_uri: string = config.request_uri
         let request_json_body: Object = this.resource_request_body_json
-        // ~~~~~~~~~~~~~~~~~~ Useful Methods/Variables For Customization. ⚠️ Scroll Down for customization ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~~~~~~~~~~ Useful Methods/Variables For Customization. ⚠️ Scroll Down for customization ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-        //   1. Get arbitrary data from your CSV file.
-        //         e.g.
-        //            this.resource_json_Repository.columnOf("Venue Address").getLine() // returns all data in the "Venue Address" column as an array
-        //            this.resource_json_Repository.columnOf("Venue Address").rowOf(2).getValue()  // returns the value of the "Venue Address" column in the 2nd row
-        //            this.resource_json_Repository.rowOf(2).columnOf("Venue Address").getValue() //  returns the value of the "Venue Address" column in the 2nd row
-
-
-        //   2. Get all Data from your JSON file.
-        //          e.g.
-        //             console.log(this.resource_request_body_json) // returns all your JSON data as an Object
+//   1. Get arbitrary data from your CSV file.
+//         e.g.
+//            this.resource_json_Repository.columnOf("Venue Address").getLine() // returns all data in the "Venue Address" column as an array
+//            this.resource_json_Repository.columnOf("Venue Address").rowOf(2).getValue()  // returns the value of the "Venue Address" column in the 2nd row
+//            this.resource_json_Repository.rowOf(2).columnOf("Venue Address").getValue() //  returns the value of the "Venue Address" column in the 2nd row
 
 
-        //   3. Replace place specified values in the URI or JSON.
-        //          e.g.
-        //              PlaceHolderReplacer.for_placeHolder("[PLACE-HOLDER]").replaceWith("Tokyo").applyToUri("https://example.com/[PLACE-HOLDER]/example")         // returns "https://example.com/Tokyo/example"
-        //              PlaceHolderReplacer.for_placeHolder("[PLACE-HOLDER]").replaceWith("Tokyo").applyToJson({ "location": "[PLACE-HOLDER}" })  ï
+//   2. Get all Data from your JSON file.
+//          e.g.
+//             console.log(this.resource_request_body_json) // returns all your JSON data as an Object
 
 
-        // ✅ For further customization, you can also use the `CsvRepository` and `JsonRepository` as below to access your CSV and JSON data, respectively.
+//   3. Replace place specified values in the URI or JSON.
+//          e.g.
+//              PlaceHolderReplacer.for_placeHolder("[PLACE-HOLDER]").replaceWith("Tokyo").applyToUri("https://example.com/[PLACE-HOLDER]/example")         // returns "https://example.com/Tokyo/example"
+//              PlaceHolderReplacer.for_placeHolder("[PLACE-HOLDER]").replaceWith("Tokyo").applyToJson({ "location": "[PLACE-HOLDER}" })  ï
 
-        // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        // =============================================⚠️ WRITE YOUR CODE BELOW ⚠️=================================================================================================
+
+// ✅ For further customization, you can also use the `CsvRepository` and `JsonRepository` as below to access your CSV and JSON data, respectively.
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// =============================================⚠️ WRITE YOUR CODE BELOW ⚠️=================================================================================================
 
 
 
@@ -70,11 +70,9 @@ export class AuthorizationHeaderAndBodyJsonService implements IBulkActionService
 
 
         // <<<<<<<<<<< START REQUEST ITERATION, based on base CSV Column. <<<<<<<<<<<
-        for (let i = 1; i < this.length_of_csv_rows; i++) {
+        for (let i = 0; i < this.length_of_csv_rows; i++) {
             // >>>>>>>>>>>> LOGIC FOR EACH ROW BELOW >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>        
-            setTimeout(() => {
-                console.log("Waited 4 seconds!");
-            }, 1000)
+
 
 
 
@@ -114,7 +112,7 @@ export class AuthorizationHeaderAndBodyJsonService implements IBulkActionService
 
 
             // Send request
-            sendJsonBodyRequest({
+            const isSuccess = await sendJsonBodyRequest({
                 URI: request_uri,
                 methodType: config.request_method,
                 securityHeaderName: config.security_header_name,
@@ -125,12 +123,14 @@ export class AuthorizationHeaderAndBodyJsonService implements IBulkActionService
 
 
 
-                // ============================================⚠️ WRITE YOUR CODE ABOVE ⚠️=====================================================================================================
-                //                                           Above codes are Default logic.
-                // ===========================================================================================================================================================================
-                .then((isSuccess) => { isSuccess ? console.log(`✅ Successfully: [${row_of_base_column}]`) : console.warn(`❌ Failed: [${row_of_base_column}]`); })
-        }
 
+            
+
+// ============================================⚠️ WRITE YOUR CODE ABOVE ⚠️=====================================================================================================
+//                                           Above codes are Default logic.
+// ===========================================================================================================================================================================
+            if (isSuccess) { console.log(`✅ Successfully: [${row_of_base_column}]`) } else { console.warn(`❌ Failed: [${row_of_base_column}]`) }
+        }
 
     }
 }
