@@ -20,5 +20,6 @@ export type configType = {
     csv_file_path: string,
     json_file_path: string,
     use_request_body: boolean,
+    async_process: boolean,
 }
 

@@ -109,9 +109,26 @@ export class AuthorizationHeaderAndBodyJsonService implements IBulkActionService
             console.log(`Request Body: ${JSON.stringify(request_json_body, null, 2)}`)
 
 
+            
+
+            // Send request without waiting the result of previous request.
+            if (config.async_process) {
+                sendJsonBodyRequest({
+                    URI: request_uri,
+                    methodType: config.request_method,
+                    securityHeaderName: config.security_header_name,
+                    accessToken: AuthorizationHeaderAndBodyJsonService.accessToken,
+                    bodyJson: request_json_body
+                }).then(isSuccess => { if (isSuccess) { console.log(`✅ Successfully: [${row_of_base_column}]`) } else { console.warn(`❌ Failed: [${row_of_base_column}]`) } }
+                )
+                continue
+            }
 
 
-            // Send request
+
+
+
+            // Send request and wait for the result of previous request.
             const isSuccess = await sendJsonBodyRequest({
                 URI: request_uri,
                 methodType: config.request_method,
@@ -131,6 +148,6 @@ export class AuthorizationHeaderAndBodyJsonService implements IBulkActionService
 // ===========================================================================================================================================================================
             if (isSuccess) { console.log(`✅ Successfully: [${row_of_base_column}]`) } else { console.warn(`❌ Failed: [${row_of_base_column}]`) }
         }
-
+        console.log("=====🎉All REQUESTS WERE PROCESSED🎉=====")
     }
 }
