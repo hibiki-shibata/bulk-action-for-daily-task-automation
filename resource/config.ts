@@ -1,9 +1,9 @@
 import { configType } from "../src/type/config.Type.js"; export const config: configType = {
-  // =====================================================================================================================================
+// =====================================================================================================================================
 
-  //                       Feel free to contact HIBIKI for question !
+//                       Feel free to contact HIBIKI for question !
 
-  // ============================📝 FILL YOUR CONFIGURATION BELOW 📝==================================================================================
+// ============================📝 FILL YOUR CONFIGURATION BELOW 📝==================================================================================
 
 
 
@@ -40,15 +40,19 @@ import { configType } from "../src/type/config.Type.js"; export const config: co
   csv_file_path: "./resource/custom-values.csv", // Define your custom data.
   json_file_path: "./resource/requestBody-config.json", // Define your request body.
 
+  
+
+  // H) Send request without waiting the result of previous request.
+  async_process: false,
 
 
 
 
 
-  // ============================📝 FILL YOUR CONFIGURATION ABOVE 📝==================================================================================
+// ============================📝 FILL YOUR CONFIGURATION ABOVE 📝==================================================================================
 
-  //                      Feel free to contact HIBIKI for question !
+//                      Feel free to contact HIBIKI for question !
 
-  // =====================================================================================================================================
+// =====================================================================================================================================
 }
 

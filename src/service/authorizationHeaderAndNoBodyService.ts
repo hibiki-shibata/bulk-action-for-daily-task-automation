@@ -100,7 +100,23 @@ export class AuthorizationHeaderAndNobodyService implements IBulkActionService {
 
 
 
-            // Send request
+            // Send request without waiting the result of previous request.
+            if (config.async_process) {
+                sendNoBodyRequest({
+                    URI: request_uri,
+                    methodType: config.request_method,
+                    securityHeaderName: config.security_header_name,
+                    accessToken: AuthorizationHeaderAndNobodyService.accessToken
+                }).then(isSuccess => { if (isSuccess) { console.log(`✅ Successfully: [${row_of_base_column}]`) } else { console.warn(`❌ Failed: [${row_of_base_column}]`) } }
+                )
+                continue
+            }
+
+
+
+
+
+            // Send request and wait for the result of previous request.
             const isSuccess: boolean = await sendNoBodyRequest({
                 URI: request_uri,
                 methodType: config.request_method,
@@ -113,12 +129,11 @@ export class AuthorizationHeaderAndNobodyService implements IBulkActionService {
 
 
 
-
-
 // ============================================⚠️ WRITE YOUR CODE ABOVE ⚠️=====================================================================================================
 //                                           Above codes are Default logic.
 // ===========================================================================================================================================================================
             if (isSuccess) { console.log(`✅ Successfully: [${row_of_base_column}]`) } else { console.warn(`❌ Failed: [${row_of_base_column}]`) }
         }
+        console.log("=====🎉All REQUESTS WERE PROCESSED🎉=====")
     }
 }
