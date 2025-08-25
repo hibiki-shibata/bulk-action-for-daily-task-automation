@@ -28,7 +28,7 @@
 
 
 #### Optional‼️
-4. [HeaderAuthorizationBodyJsonService.ts](https://github.com/hibiki-shibata/bulk-action-for-daily-task-automation/blob/main/src/service/headerAuthorizationBodyJsonService.ts).....Let's easily chage pattern of Bulk Actions!
+4. [authorizationHeaderAndBodyJsonService.ts](https://github.com/hibiki-shibata/bulk-action-for-daily-task-automation/blob/main/src/service/headerAuthorizationBodyJsonService.ts) or [authorizationHeaderAndNoBodyService.ts](https://github.com/hibiki-shibata/bulk-action-for-daily-task-automation/blob/main/src/service/authorizationHeaderAndNoBodyService.ts).....Let's easily chage pattern of Bulk Actions!
 - When your requirement wasn't satisfied by the default behavior, custmize more details here!
 - It will be simple!
 
