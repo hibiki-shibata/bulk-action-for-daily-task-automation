@@ -16,11 +16,14 @@
 1. Edit [`./resource/config.ts`](https://github.com/hibiki-shibata/bulk-action-for-daily-task-automation/blob/main/resource/config.ts)...Configure Request method, URI, CSV column name🔧.
    - Inspect request format(Request URL, Request Method, Request Body) in network log on your Browser, and copy it.
 
-2. Edit [JSON file](https://github.com/hibiki-shibata/bulk-action-for-daily-task-automation/blob/main/resource/request-body.json)....Define the structure of request body📝.
+2. Edit [JSON file](https://github.com/hibiki-shibata/bulk-action-for-daily-task-automation/blob/main/resource/requestBody-config.json)....Define the structure of request body📝.
    - Copy the inspected request Body in the step1.
    - Use [<Your CSV column name>]
    
-3. Edit [CSV file](https://github.com/hibiki-shibata/bulk-action-for-daily-task-automation/blob/main/resource/target-values.csv)....Define the target values of request📝.
+3. Edit [CSV file](https://github.com/hibiki-shibata/bulk-action-for-daily-task-automation/blob/main/resource/custom-values.csv)....Define the target values of request📝.
+
+4. Edit [Access token](https://github.com/hibiki-shibata/bulk-action-for-daily-task-automation/blob/main/resource/access-token.txt)....Paste your access token for the website.
+
 
 <p align="center" border="none">
   <img alt="Bulk tool, the relation of CSV, JSON and config" src="./doc/bulkToolDesc.jpg" align="center">
